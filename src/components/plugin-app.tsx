@@ -11,11 +11,8 @@ import UtilityButtonMeta from "meta/utility-button-meta";
 
 import inSortedOrder from "utilities/in-sorted-order";
 import tryLogToHistory from "utilities/try-log-to-history";
+import useDecompositionUpdate from "hooks/use-decomposition-update";
 import useTheme from "hooks/use-theme";
-
-function sort(a: keyof typeof UtilityButton, b: keyof typeof UtilityButton) {
-	return UtilityButton[a] < UtilityButton[b];
-}
 
 const PADDING_SCALE = 0.02;
 const BUTTON_HEIGHT = 36;
@@ -24,30 +21,14 @@ const USE_VIRTUAL_SCROLLER = true;
 
 export const PluginApp: Roact.FunctionComponent = () => {
 	const { fontFaces, mainText } = useTheme();
-
-	const onActivatedFunctions = useMemo(() => {
-		const functions = {} as Record<UtilityButton, () => void>;
-
-		for (const [, utilityButton] of pairs(UtilityButton)) {
-			const { callback, name, shouldRecord, text } = UtilityButtonMeta[utilityButton];
-			functions[utilityButton] = shouldRecord ? tryLogToHistory(callback, name, text) : callback;
-		}
-
-		return functions;
-	}, []);
-
 	const [buttons, length] = useMemo(() => {
 		const buttons = new Array<Roact.Element>();
 		let length = 0;
 
-		for (const [name, utilityButton] of inSortedOrder(UtilityButton, sort)) {
-			const onActivated = onActivatedFunctions[utilityButton];
-			if (!onActivated) {
-				warn(`Missing onActivated for ${name}?`);
-				continue;
-			}
+		for (const [, utilityButton] of inSortedOrder(UtilityButton, (a, b) => UtilityButton[a] < UtilityButton[b])) {
+			const { callback, name, shouldRecord, text, tooltip } = UtilityButtonMeta[utilityButton];
+			const onActivated = shouldRecord ? tryLogToHistory(callback, name, text) : callback;
 
-			const { text, tooltip } = UtilityButtonMeta[utilityButton];
 			buttons[length++] = (
 				<Button
 					key={`Button-${name}`}
@@ -64,9 +45,10 @@ export const PluginApp: Roact.FunctionComponent = () => {
 		}
 
 		return $tuple(buttons, length);
-	}, [onActivatedFunctions]);
+	}, []);
 
 	const renderItem = useCallback((index: number) => buttons[index - 1], [buttons]);
+	useDecompositionUpdate();
 
 	return (
 		<Background>
