@@ -1,0 +1,24 @@
+{
+    "Slice": {
+		"prefix": "slice",
+		"description": "Create a Reflex Slice.",
+		"body": [
+			"import { createProducer } from \"@rbxts/reflex\";",
+			"",
+			"export interface ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}State {",
+			"\treadonly ${1:value}: ${2:string};",
+			"}",
+			"",
+			"const initialState: ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}State = table.freeze({",
+			"\t$1: ${3:\"Hello, World!\"},",
+			"});",
+			"",
+			"export const ${TM_FILENAME_BASE/(.*)/${1:/camelcase}/g}Slice = createProducer(initialState, {",
+			"\t${4:doSomething}: (state) => table.freeze({ ...state }),",
+			"});",
+			"",
+		],
+
+		"scope": "typescript,typescriptreact",
+    },
+}

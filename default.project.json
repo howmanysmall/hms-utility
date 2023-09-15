@@ -1,5 +1,5 @@
 {
-	"name": "roblox-ts-plugin",
+	"name": "HmsUtility",
 	"globIgnorePaths": [
 		"**/package.json",
 		"**/tsconfig.json"

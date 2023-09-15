@@ -1,13 +1,14 @@
 {
-	"name": "roblox-ts-plugin-serve",
+	"name": "HmsUtilityServe",
+	"servePort": 25565,
 	"globIgnorePaths": [
 		"**/package.json",
 		"**/tsconfig.json"
 	],
 	"tree": {
 		"$className": "DataModel",
-		"ServerScriptService": {
-			"$className": "ServerScriptService",
+		"ServerStorage": {
+			"$className": "ServerStorage",
 			"Plugin": {
 				"$path": "./default.project.json"
 			}

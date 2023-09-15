@@ -1,0 +1,37 @@
+{
+    "Functional Component": {
+		"prefix": "rofc",
+		"description": "Create a Functional Component",
+		"body": [
+			"import Roact from \"@rbxts/roact\";",
+			"",
+			"export const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}: Roact.FunctionComponent = () => {",
+			"\treturn <></>;",
+			"};",
+			"",
+			"export default Roact.memo(${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g});",
+			"",
+		],
+
+		"scope": "typescript,typescriptreact",
+    },
+
+    "Functional Component with Props": {
+		"prefix": "rofcp",
+		"description": "Create a Functional Component with Props",
+		"body": [
+			"import Roact from \"@rbxts/roact\";",
+			"",
+			"export interface ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}Properties {}",
+			"",
+			"export const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}: Roact.FunctionComponent<${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}Properties> = (properties) => {",
+			"\treturn <></>;",
+			"};",
+			"",
+			"export default Roact.memo(${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g});",
+			"",
+		],
+
+		"scope": "typescript,typescriptreact",
+    },
+}
