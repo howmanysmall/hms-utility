@@ -26,7 +26,6 @@
 		"tsBuildInfoFile": "out/tsconfig.tsbuildinfo",
 		"plugins": [
 			{"transform": "rbxts-transformer-services"},
-			{"transform": "rbxts-transformer-t"},
 		],
 	}
 }
