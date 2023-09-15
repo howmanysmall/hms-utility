@@ -303,6 +303,40 @@ export const UtilityButtonMeta: { [utilityButton in UtilityButton]: Metadata } =
 		text: "Set Valley Lighting",
 		tooltip: "Sets the lighting to the valley theme.",
 	},
+
+	[UtilityButton.CreatePrimaryPart]: {
+		callback: () => {
+			const newSelection = new Array<Instance>();
+			let length = 0;
+
+			for (const object of Selection.Get()) {
+				if (object.IsA("Model")) {
+					if (object.PrimaryPart !== undefined) {
+						warn(object.GetFullName(), "already has a PrimaryPart.");
+						continue;
+					}
+
+					const primaryPart = new Instance("Part");
+					[primaryPart.CFrame, primaryPart.Size] = object.GetBoundingBox();
+					primaryPart.Anchored = true;
+					primaryPart.CanCollide = false;
+					primaryPart.Name = "Root";
+					primaryPart.Transparency = 1;
+					primaryPart.Parent = object;
+					object.PrimaryPart = primaryPart;
+
+					newSelection[length++] = primaryPart;
+				}
+			}
+
+			Selection.Set(newSelection);
+		},
+
+		name: "CreatePrimaryParts",
+		shouldRecord: true,
+		text: "Create PrimaryParts",
+		tooltip: "Creates a PrimaryPart for all selected models.",
+	},
 };
 
 export default UtilityButtonMeta;

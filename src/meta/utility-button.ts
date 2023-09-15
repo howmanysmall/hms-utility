@@ -8,6 +8,7 @@ export enum UtilityButton {
 	CreateAspectRatio,
 	LockAllBaseParts,
 	ValleyLighting,
+	CreatePrimaryPart,
 }
 
 export default UtilityButton;
