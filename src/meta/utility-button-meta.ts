@@ -8,10 +8,13 @@ import UtilityButton from "./utility-button";
 import clearAllEffects from "utilities/button-utilities/clear-all-effects";
 import getOrCreate from "utilities/button-utilities/get-or-create";
 import isSourceContainer from "utilities/button-utilities/is-source-container";
+import organizeByBrickColor from "utilities/button-utilities/organize-by-colors/organize-by-brickcolor";
+import organizeByColor3 from "utilities/button-utilities/organize-by-colors/organize-by-color3";
 import promiseAll from "promises/promise-plus/promise-all";
 import promiseSource from "utilities/button-utilities/promise-source";
 import searchForDuplicates from "utilities/button-utilities/search-for-duplicates";
 import smoothNoOutlines from "utilities/button-utilities/smooth-no-outlines";
+import weldTool from "utilities/button-utilities/weld-tool";
 
 interface Metadata {
 	/**
@@ -336,6 +339,41 @@ export const UtilityButtonMeta: { [utilityButton in UtilityButton]: Metadata } =
 		shouldRecord: true,
 		text: "Create PrimaryParts",
 		tooltip: "Creates a PrimaryPart for all selected models.",
+	},
+
+	[UtilityButton.WeldConstraintTools]: {
+		callback: () => {
+			for (const object of Selection.Get()) if (object.IsA("Tool")) weldTool(object);
+		},
+
+		name: "WeldConstraintTools",
+		shouldRecord: true,
+		text: "WeldConstraint Tools",
+		tooltip: "Welds all the BaseParts in the selected Tools using a WeldConstraint.",
+	},
+
+	[UtilityButton.EasyExport]: {
+		callback: () => {
+			for (const object of Selection.Get())
+				if (object.IsA("Folder") || object.IsA("Model")) organizeByBrickColor(object);
+		},
+
+		name: "EasyExport",
+		shouldRecord: true,
+		text: "Easy Export",
+		tooltip: "Sorts all parts in a given model by BrickColor for an easier way to export as a Mesh.",
+	},
+
+	[UtilityButton.EasyExportColor3]: {
+		callback: () => {
+			for (const object of Selection.Get())
+				if (object.IsA("Folder") || object.IsA("Model")) organizeByColor3(object);
+		},
+
+		name: "EasyExportColor3",
+		shouldRecord: true,
+		text: "Easy Export Color3",
+		tooltip: "Sorts all parts in a given model by Color3 for an easier way to export as a Mesh.",
 	},
 };
 
