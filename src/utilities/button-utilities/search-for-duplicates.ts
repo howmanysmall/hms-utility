@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 const EPSILON = 1e-5;
 
 export default function searchForDuplicates(children: Array<Instance>, total = 0) {

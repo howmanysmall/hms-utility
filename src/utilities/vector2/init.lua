@@ -1,3 +1,4 @@
+--!native
 --!optimize 2
 --!strict
 local Memoize = require(script:FindFirstChild("Memoize"))

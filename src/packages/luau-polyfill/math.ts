@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import { isFinite, Number } from "./number";
 
 namespace Math {

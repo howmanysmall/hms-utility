@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import BaseTheme from "./base-theme";
 import { camelCase } from "utilities/string-utilities";
 import type { CamelCaseObjectKeys } from "types/advanced-types";

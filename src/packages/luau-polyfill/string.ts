@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 
 namespace String {
 	export const trimStart = (source: string) => source.gsub("^[%s]+", "")[0];
@@ -6,5 +8,3 @@ namespace String {
 }
 
 export = String;
-
-	

@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 export default function organizeByBrickColor(model: Model | Folder) {
 	const colorTable = new Map<BrickColorsByNumber[keyof BrickColorsByNumber], Array<BasePart>>();
 

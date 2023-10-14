@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 export enum UtilityButton {
 	SetupGame,
 	FixTabs,
@@ -7,6 +9,8 @@ export enum UtilityButton {
 	SelectParentOfSelection,
 	CreateAspectRatio,
 	LockAllBaseParts,
+	DeleteEmptyModels,
+	DeleteEmptyModelsSafe,
 	ValleyLighting,
 	CreatePrimaryPart,
 	WeldConstraintTools,

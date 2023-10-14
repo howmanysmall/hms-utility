@@ -1,3 +1,4 @@
+--!native
 --!optimize 2
 --!strict
 export type MemoizeFunction<T, U> = (Index: T) -> U

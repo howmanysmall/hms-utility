@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import { useEffect, useMemo } from "@rbxts/roact";
 
 interface ConnectionLike {

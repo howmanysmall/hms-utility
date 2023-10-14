@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import Roact from "@rbxts/roact";
 import type { Error } from "packages/luau-polyfill";
 

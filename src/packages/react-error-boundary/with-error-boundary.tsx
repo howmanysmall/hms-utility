@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import Roact from "@rbxts/roact";
 import ErrorBoundary from "./error-boundary.d";
 import { ErrorBoundaryProperties } from "./types";

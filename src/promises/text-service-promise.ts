@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import { TextService } from "@rbxts/services";
 const getTextBoundsAsync = (getTextBoundsParameters: GetTextBoundsParams) =>
 	TextService.GetTextBoundsAsync(getTextBoundsParameters);

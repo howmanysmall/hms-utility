@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import { useState, useEffect, useMemo } from "@rbxts/roact";
 import getTheme from "utilities/get-theme";
 

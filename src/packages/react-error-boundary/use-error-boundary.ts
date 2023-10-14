@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import type { Error } from "packages/luau-polyfill";
 import assertErrorBoundaryContext from "./assert-error-boundary-context";
 import { useContext, useMemo, useState } from "@rbxts/roact";

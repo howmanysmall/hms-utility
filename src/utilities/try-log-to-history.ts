@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 const ChangeHistoryService = game.GetService("ChangeHistoryService");
 
 export default function tryLogToHistory(callback: () => void, name: string, displayName: string) {

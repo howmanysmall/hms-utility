@@ -1,3 +1,6 @@
+//!native
+//!optimize 2
+/* eslint-disable unicorn/prefer-export-from */
 import LuauPolyfillArray from "./array";
 import LuauPolyfillConsole from "./console";
 import LuauPolyfillError, { Error as ErrorType } from "./error";

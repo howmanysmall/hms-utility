@@ -1,3 +1,4 @@
+--!native
 --!optimize 2
 --- @typecheck mode: nocheck
 local ERRORS_ARE_THROWN = true

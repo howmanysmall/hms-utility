@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import Roact from "@rbxts/roact";
 import ErrorBoundary from "packages/react-error-boundary/error-boundary";
 import FallbackResetBoundary from "./fallback-reset-boundary";
@@ -9,7 +11,7 @@ export interface AppProperties {
 	 * This should really be off in production, as
 	 * it does double renders.
 	 */
-	useStrictMode?: boolean;
+	readonly useStrictMode?: boolean;
 }
 
 export const App: Roact.FunctionComponent<AppProperties> = ({ children, useStrictMode }) => (

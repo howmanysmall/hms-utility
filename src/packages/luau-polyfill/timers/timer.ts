@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import CreateSymbol from "./create-symbol";
 
 const Status = CreateSymbol();
@@ -27,10 +29,10 @@ export type TimerTask = { [status: typeof Status]: TaskStatus };
  * @param timeoutArguments Optional arguments to pass when the `callback` is called.
  * @return for use with {@link clearTimeout}
  */
-export function setTimeout<TArgs extends Array<unknown>>(
-	callback: (...timeoutArguments: TArgs) => void,
+export function setTimeout<TArguments extends Array<unknown>>(
+	callback: (...timeoutArguments: TArguments) => void,
 	delay = 0,
-	...timeoutArguments: TArgs
+	...timeoutArguments: TArguments
 ): TimerTask {
 	const timeout: TimerTask = {
 		[Status]: TaskStatus.SCHEDULED,

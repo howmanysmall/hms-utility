@@ -1,3 +1,6 @@
+--!native
+--!optimize 2
+
 local function alphabetically(a, b)
 	local typeA = typeof(a)
 	local typeB = typeof(b)

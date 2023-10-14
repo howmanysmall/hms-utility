@@ -1,6 +1,6 @@
+//!native
+//!optimize 2
 import Roact from "@rbxts/roact";
-import { console } from "packages/luau-polyfill";
-console;
 
 export interface ErrorBoundaryContextType {
 	didCatch: boolean;

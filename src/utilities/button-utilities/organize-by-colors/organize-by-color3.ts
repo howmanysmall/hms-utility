@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 export default function organizeByColor3(model: Model | Folder) {
 	const colorTable = new Map<string, Array<BasePart>>();
 

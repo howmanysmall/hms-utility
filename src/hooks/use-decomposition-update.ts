@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import { Workspace } from "@rbxts/services";
 const PhysicsSettings = settings().GetService("PhysicsSettings" as never) as PhysicsSettings;
 

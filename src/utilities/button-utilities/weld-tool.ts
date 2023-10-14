@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 export default function weldTool(tool: Tool) {
 	const handle = tool.FindFirstChild("Handle");
 	if (handle && handle.IsA("BasePart"))

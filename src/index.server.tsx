@@ -1,9 +1,11 @@
+//!native
+//!optimize 2
 /// <reference types="@rbxts/types/plugin" />
 import App from "components/app";
 import PluginApp from "components/plugin-app";
 import Roact from "@rbxts/roact";
 
-const toolbar = plugin.CreateToolbar("Lily's Plugins");
+const toolbar = plugin.CreateToolbar("HowManyPlugins");
 const button = toolbar.CreateButton("HmsUtility", "Toggles the utility widget.", "");
 button.ClickableWhenViewportHidden = true;
 

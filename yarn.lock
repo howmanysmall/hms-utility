@@ -113,10 +113,10 @@
     picocolors "^1.0.0"
     tslib "^2.6.0"
 
-"@rbxts/compiler-types@^2.1.1-types.0":
-  version "2.1.1-types.0"
-  resolved "https://registry.yarnpkg.com/@rbxts/compiler-types/-/compiler-types-2.1.1-types.0.tgz#a1f02b57402dffec474dd6656ec1d8a897b9756b"
-  integrity sha512-wBRma9MgPbOxvCaQEUvraHLHAmLFGW9R6fT65+MBu3uCYM6vUNWj8l4dHRxgkUK8lnGYdGWxsr/sZFk8sdvwog==
+"@rbxts/compiler-types@^2.2.0-types.0":
+  version "2.2.0-types.0"
+  resolved "https://registry.yarnpkg.com/@rbxts/compiler-types/-/compiler-types-2.2.0-types.0.tgz#cba7ff0cde0fa9ac18abb4251452814232d67a1e"
+  integrity sha512-ycsIGfp49MypbRi4eEPCXTjbb2iLKL1/2GjRrFLuLJL74fCfVtbAXIo2LiZhPrgqIiBLomb4JN5Rcqv4304bzw==
 
 "@rbxts/luau-polyfill-internal@1.2.3-ts.0":
   version "1.2.3-ts.0"
@@ -219,33 +219,35 @@
   resolved "https://registry.yarnpkg.com/@rbxts/t/-/t-3.1.0.tgz#a8f2d99d5ce1b0cc7f2a61e0a93ad4d872764089"
   integrity sha512-ba/wfKYtAL6JWVhZNbhMnBZtzgGaTxttvfzxxpEcHDy0Qeaq0DF2Odo/zJ32Ajw961EMYkAMTnPXLLrLB/r+mw==
 
-"@rbxts/types@^1.0.714":
-  version "1.0.714"
-  resolved "https://registry.yarnpkg.com/@rbxts/types/-/types-1.0.714.tgz#a8f1334582e95e7b8d276fd44808c223774e3e27"
-  integrity sha512-6voqpRotKWoMNpmD/PoXb0xA0CEUZmy1xZn/gD0bSQOI27WcgLk500eUG0jfBoTa+EOktvdk2Fv0oSgbgXVovQ==
+"@rbxts/types@^1.0.721":
+  version "1.0.721"
+  resolved "https://registry.yarnpkg.com/@rbxts/types/-/types-1.0.721.tgz#2c815726122fa9f0911db1569cb597ece02a7509"
+  integrity sha512-2+0R6pqQFL1uG9h5+SwiFSLaEKcuOO0nShO9COSygEwi9GaRW0bGrWU5FwY6BlqW0yyWiaIEmwSj4Bx6FGwOxg==
 
-"@roblox-ts/luau-ast@^1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@roblox-ts/luau-ast/-/luau-ast-1.0.8.tgz#00c2c7592a4d5a6e44d18f6dd3cb111c0a0f393e"
-  integrity sha512-JmCVc6bNRw+WoYrSx0RX1wBj8CtD50l+fwn5fSQNfpYgXgIuBo8I+5iDEMeZFcuxSD0/A39nKsZE8FSZMxgjqA==
+"@roblox-ts/luau-ast@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@roblox-ts/luau-ast/-/luau-ast-1.0.10.tgz#3c752a95b878c5f66c0af6d0f18f8857c34e7b13"
+  integrity sha512-Yts0q76OPDosqFpFO9VbLIyRilWnXjN0cHMc6ljlMqPfJjZ5ubrsbLKEVSOFbVP3WaKWSujwee6dgrAJOgig+w==
 
-"@roblox-ts/rojo-resolver@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@roblox-ts/rojo-resolver/-/rojo-resolver-1.0.4.tgz#5fc30b77fef9873ffa6c3561e8977a27bb85160a"
-  integrity sha512-a4f5qp/67rjplKQxPeWcQTfVBzXmkaB7O/kcEthzzcVyIfDD1Kiez4BDiBbNANwRKaRnawE8YdllWEp2LDO1hg==
+"@roblox-ts/rojo-resolver@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@roblox-ts/rojo-resolver/-/rojo-resolver-1.0.6.tgz#01879437e69d3bcaf8e34ad459593d8992a66e8c"
+  integrity sha512-+heTECMo6BdH3a3h4DCj+8kJvwKuxWqBevcW/m2BzQaVtmo1GtLa4V4bJCMvDuAMeEqYKQZUB7546nN2dcqqAA==
   dependencies:
-    ajv "^8.11.0"
-    fs-extra "^11.1.0"
+    ajv "^8.12.0"
+    fs-extra "^11.1.1"
 
 "@types/json-schema@^7.0.12", "@types/json-schema@^7.0.9":
   version "7.0.12"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.12.tgz#d70faba7039d5fca54c83c7dbab41051d2b6f6cb"
   integrity sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==
 
-"@types/node@^16.10.4":
-  version "16.18.50"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.18.50.tgz#93003cf0251a2ecd26dad6dc757168d648519805"
-  integrity sha512-OiDU5xRgYTJ203v4cprTs0RwOCd5c5Zjv+K5P8KSqfiCsB1W3LcamTUMcnQarpq5kOYbhHfSOgIEJvdPyb5xyw==
+"@types/node@^20.8.0":
+  version "20.8.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.8.6.tgz#0dbd4ebcc82ad0128df05d0e6f57e05359ee47fa"
+  integrity sha512-eWO4K2Ji70QzKUqRy6oyJWUeB7+g2cRagT3T/nxYibYcT4y2BDL8lqolRXjTHmkZCdJfIPaY73KbJAZmcryxTQ==
+  dependencies:
+    undici-types "~5.25.1"
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -274,7 +276,7 @@
     semver "^7.5.4"
     ts-api-utils "^1.0.1"
 
-"@typescript-eslint/experimental-utils@^5.0.0":
+"@typescript-eslint/experimental-utils@^5.62.0":
   version "5.62.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-5.62.0.tgz#14559bf73383a308026b427a4a6129bae2146741"
   integrity sha512-RTXpeB3eMkpoclG3ZHft6vG/Z30azNHuqY6wKPBHlVMZFuEvrtlEDe8gMqDb+SO+9hjC/pLekeSCryf9vMZlCw==
@@ -417,7 +419,7 @@ ajv@^6.12.4:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-ajv@^8.11.0:
+ajv@^8.12.0:
   version "8.12.0"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.12.0.tgz#d1a0527323e22f53562c567c00991577dfbe19d1"
   integrity sha512-sRu1kpcO9yLtYxBKvqfTeh9KzZEwO3STyX1HT+4CaDzC6HpTGYhIhPIzj9XuKU7KYDwnaeh5hcOwjy1QuJzBPA==
@@ -928,14 +930,14 @@ eslint-plugin-react@^7.32.2:
     semver "^6.3.1"
     string.prototype.matchall "^4.0.8"
 
-eslint-plugin-roblox-ts@^0.0.35:
-  version "0.0.35"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-roblox-ts/-/eslint-plugin-roblox-ts-0.0.35.tgz#9b1369b9ca0a454033125c2588f575985a3d0b3d"
-  integrity sha512-dITctpivgGVLWljPGZBGA0pvmjqA1VzTNd1K3ExOXMk6bYxSn4FyAVkrzHA+ITvAkVJYtgRzwKYJlf1HUoszQg==
+eslint-plugin-roblox-ts@0.0.36:
+  version "0.0.36"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-roblox-ts/-/eslint-plugin-roblox-ts-0.0.36.tgz#f36e9d824c318a307013d68f07a5f6665a70eee6"
+  integrity sha512-vlbgfHY1heWSyDunVX3gIOamCy28KqrJlDkmuDOyYVBo8uLqdvbFkbWkdGxn59Vky1m6pFcvZGU6TObfmwm5Pg==
   dependencies:
-    "@types/node" "^16.10.4"
-    "@typescript-eslint/experimental-utils" "^5.0.0"
-    typescript "^4.4.4"
+    "@types/node" "^20.8.0"
+    "@typescript-eslint/experimental-utils" "^5.62.0"
+    typescript "^5.2.2"
 
 eslint-plugin-unicorn@^47.0.0:
   version "47.0.0"
@@ -1180,7 +1182,7 @@ for-each@^0.3.3:
   dependencies:
     is-callable "^1.1.3"
 
-fs-extra@^11.1.0, fs-extra@^11.1.1:
+fs-extra@^11.1.1:
   version "11.1.1"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-11.1.1.tgz#da69f7c39f3b002378b0954bb6ae7efdc0876e2d"
   integrity sha512-MGIE4HOvQCeUCzmlHs0vXpih4ysz4wg9qiSAu6cd42lVwPbTM1TjV7RusoyQqMmk/95gdQZX72u+YW+c3eEpFQ==
@@ -2211,10 +2213,19 @@ resolve-from@^4.0.0:
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-4.0.0.tgz#4abcd852ad32dd7baabfe9b40e00a36db5f392e6"
   integrity sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==
 
-resolve@^1.10.0, resolve@^1.22.3:
+resolve@^1.10.0:
   version "1.22.5"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.5.tgz#a83c145cf04ffcd19b1f3f5f9e0ae8b9053f0615"
   integrity sha512-qWhv7PF1V95QPvRoUGHxOtnAlEvlXBylMZcjUR9pAumMmveFtcHJRXGIr+TkjfNJVQypqv2qcDiiars2y1PsSg==
+  dependencies:
+    is-core-module "^2.13.0"
+    path-parse "^1.0.7"
+    supports-preserve-symlinks-flag "^1.0.0"
+
+resolve@^1.22.6:
+  version "1.22.8"
+  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.8.tgz#b6c87a9f2aa06dfab52e3d70ac8cde321fa5a48d"
+  integrity sha512-oKWePCxqpd6FlLvGV1VU0x7bkPmmCNolxzjMf4NczoDnQcIWrAF+cPtZn5i6n+RfD2d9i0tzpKnG6Yk168yIyw==
   dependencies:
     is-core-module "^2.13.0"
     path-parse "^1.0.7"
@@ -2241,20 +2252,20 @@ rimraf@^3.0.2:
   dependencies:
     glob "^7.1.3"
 
-roblox-ts@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/roblox-ts/-/roblox-ts-2.1.1.tgz#6d9b54663de95cba41c9699564c007c6c3066047"
-  integrity sha512-SvLACYwWNTSUhF+I6+sQeulu68IV6gHeIbtRZYWitVNI3CM4Jy2fFEfFTMRQmlpmgEcIzQygOC/c4+Vk+/JGJQ==
+roblox-ts@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/roblox-ts/-/roblox-ts-2.2.0.tgz#68d37bf5f6cee3a4257f2628f331726942dc061d"
+  integrity sha512-c28Ptmje50456pqyhE7WsxU0cYLH63qwKLqbz6Sit53bm1Xry/gUiqlho7fFnwW/os9Npk8bjYl8Oom46maZtQ==
   dependencies:
-    "@roblox-ts/luau-ast" "^1.0.8"
-    "@roblox-ts/rojo-resolver" "^1.0.4"
+    "@roblox-ts/luau-ast" "^1.0.10"
+    "@roblox-ts/rojo-resolver" "^1.0.6"
     chokidar "^3.5.3"
     fs-extra "^11.1.1"
     kleur "^4.1.5"
     lookpath "^1.2.2"
     prompts "^2.4.2"
-    resolve "^1.22.3"
-    typescript "=4.9.4"
+    resolve "^1.22.6"
+    typescript "=5.2.2"
     yargs "^17.7.2"
 
 run-applescript@^5.0.0:
@@ -2592,20 +2603,15 @@ typed-array-length@^1.0.4:
     for-each "^0.3.3"
     is-typed-array "^1.1.9"
 
-typescript@=4.9.4:
-  version "4.9.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.4.tgz#a2a3d2756c079abda241d75f149df9d561091e78"
-  integrity sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==
-
-typescript@^4.4.4, typescript@^4.5.4:
-  version "4.9.5"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
-  integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
-
-typescript@^5.2.2:
+typescript@=5.2.2, typescript@^5.2.2:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.2.2.tgz#5ebb5e5a5b75f085f22bc3f8460fba308310fa78"
   integrity sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==
+
+typescript@^4.5.4:
+  version "4.9.5"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
+  integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
 
 unbox-primitive@^1.0.2:
   version "1.0.2"
@@ -2616,6 +2622,11 @@ unbox-primitive@^1.0.2:
     has-bigints "^1.0.2"
     has-symbols "^1.0.3"
     which-boxed-primitive "^1.0.2"
+
+undici-types@~5.25.1:
+  version "5.25.3"
+  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-5.25.3.tgz#e044115914c85f0bcbb229f346ab739f064998c3"
+  integrity sha512-Ga1jfYwRn7+cP9v8auvEXN1rX3sWqlayd4HP7OKk4mZWylEmu3KzXDUGrQUN6Ol7qo1gPvB2e5gX6udnyEPgdA==
 
 universalify@^2.0.0:
   version "2.0.0"

@@ -1,12 +1,14 @@
+//!native
+//!optimize 2
 import Roact, { useMemo } from "@rbxts/roact";
 import useTheme from "hooks/use-theme";
 import { oneScale } from "utilities/udim2";
 
 export interface AutomaticScrollingFrameProperties {
-	includePadding?: boolean;
-	itemCount: number;
-	itemHeight: number;
-	renderItem: (index: number) => Roact.Element;
+	readonly includePadding?: boolean;
+	readonly itemCount: number;
+	readonly itemHeight: number;
+	readonly renderItem: (index: number) => Roact.Element;
 }
 
 export const AutomaticScrollingFrame: Roact.FunctionComponent<AutomaticScrollingFrameProperties> = ({

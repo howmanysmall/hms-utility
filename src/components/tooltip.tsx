@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 /* eslint-disable unicorn/no-array-callback-reference */
 import Roact, { useBinding, useCallback, useEffect, useRef, useState } from "@rbxts/roact";
 
@@ -24,10 +26,10 @@ const TEXT_SIZE = 14;
 const FOR_FULL_SIZE = new Vector2(TEXT_PADDING_SIDES * 2, TEXT_PADDING_BOTTOM + TEXT_PADDING_TOP);
 
 export interface TooltipProperties {
-	disabled: boolean;
-	hoverDelay: number;
-	maxWidth: number;
-	text: string;
+	readonly disabled: boolean;
+	readonly hoverDelay: number;
+	readonly maxWidth: number;
+	readonly text: string;
 }
 
 export const Tooltip: Roact.FunctionComponent<Partial<TooltipProperties>> = ({

@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import { useCallback, useState } from "@rbxts/roact";
 import type { OnInput } from "types/generic";
 

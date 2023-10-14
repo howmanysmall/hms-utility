@@ -1,16 +1,18 @@
+//!native
+//!optimize 2
 import Roact, { useCallback, useState } from "@rbxts/roact";
 import useTheme from "hooks/use-theme";
 import { oneScale } from "utilities/udim2";
 import type { BindingOrValue } from "types/generic";
 
 export interface VirtualScrollerProperties {
-	layoutOrder?: BindingOrValue<number>;
+	readonly layoutOrder?: BindingOrValue<number>;
 
-	includePadding?: boolean;
-	itemCount: number;
-	itemHeight: number;
+	readonly includePadding?: boolean;
+	readonly itemCount: number;
+	readonly itemHeight: number;
 
-	renderItem: (index: number) => Roact.Element;
+	readonly renderItem: (index: number) => Roact.Element;
 }
 
 export const VirtualScroller: Roact.FunctionComponent<VirtualScrollerProperties> = ({

@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import CreateSymbol from "./create-symbol";
 
 const Status = CreateSymbol();
@@ -22,10 +24,10 @@ export type IntervalTask = { [status: typeof Status]: TaskStatus };
  * @param intervalArguments Optional arguments to pass when the `callback` is called.
  * @return for use with {@link clearInterval}
  */
-export function setInterval<TArgs extends Array<unknown>>(
-	callback: (...intervalArguments: TArgs) => void,
+export function setInterval<TArguments extends Array<unknown>>(
+	callback: (...intervalArguments: TArguments) => void,
 	delay = 0,
-	...intervalArguments: TArgs
+	...intervalArguments: TArguments
 ): IntervalTask {
 	const timeout: IntervalTask = {
 		[Status]: TaskStatus.SCHEDULED,

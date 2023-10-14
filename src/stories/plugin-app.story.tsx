@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import Roact from "@rbxts/roact";
 import * as ReactRoblox from "@rbxts/react-roblox";
 import type { ReactStory } from "types/flipbook";

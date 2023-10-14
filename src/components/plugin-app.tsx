@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import Roact, { useCallback, useMemo } from "@rbxts/roact";
 
 import AutomaticScrollingFrame from "./automatic-scrolling-frame";

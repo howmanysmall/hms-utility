@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import Roact, { useEffect } from "@rbxts/roact";
 import { useErrorBoundary } from "packages/react-error-boundary";
 

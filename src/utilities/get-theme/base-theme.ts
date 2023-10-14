@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import type { AnimationConfigs } from "@rbxts/rbx-react-spring";
 
 export const BaseTheme = {

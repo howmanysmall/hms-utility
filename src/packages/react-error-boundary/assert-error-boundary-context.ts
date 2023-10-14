@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import { t } from "@rbxts/t";
 import type { ErrorBoundaryContextType } from "./error-boundary-context";
 

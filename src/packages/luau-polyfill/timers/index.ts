@@ -1,3 +1,6 @@
+//!native
+//!optimize 2
+/* eslint-disable unicorn/prefer-export-from */
 import { clearInterval, setInterval, IntervalTask } from "./interval";
 import { clearTimeout, setTimeout, TimerTask } from "./timer";
 

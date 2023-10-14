@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import Roact, { useCallback } from "@rbxts/roact";
 import useBasicInputEvents from "hooks/use-basic-input-events";
 import useTheme from "hooks/use-theme";
@@ -5,10 +7,10 @@ import { useSpring } from "@rbxts/rbx-react-spring";
 import { oneScale } from "utilities/udim2";
 
 export interface ButtonProperties {
-	disabled?: boolean;
-	nativeProperties: Roact.JsxInstance<TextButton>;
-	selected?: boolean;
-	onActivated?: () => void;
+	readonly disabled?: boolean;
+	readonly nativeProperties: Roact.JsxInstance<TextButton>;
+	readonly selected?: boolean;
+	readonly onActivated?: () => void;
 }
 
 export const Button: Roact.FunctionComponent<ButtonProperties> = ({

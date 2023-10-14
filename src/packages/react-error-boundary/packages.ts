@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 /* eslint-disable unicorn/prefer-export-from */
 import Roact from "@rbxts/roact";
 import LuauPolyfill from "packages/luau-polyfill";

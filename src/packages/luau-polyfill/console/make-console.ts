@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import inspect from "../inspect";
 import FormatParameters from "./format-parameters";
 

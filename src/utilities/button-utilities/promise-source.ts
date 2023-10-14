@@ -1,3 +1,5 @@
+//!native
+//!optimize 2
 import type { SourceContainer } from "./is-source-container";
 
 export default function promiseSource(sourceContainer: SourceContainer) {

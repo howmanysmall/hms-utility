@@ -1,14 +1,16 @@
+//!native
+//!optimize 2
 import Roact from "@rbxts/roact";
 import useTheme from "hooks/use-theme";
 import { oneScale } from "utilities/udim2";
 import type { BindingOrValue } from "types/generic";
 
 export interface BackgroundProperties {
-	anchorPoint?: BindingOrValue<Vector2>;
-	layoutOrder?: BindingOrValue<number>;
-	position?: BindingOrValue<UDim2>;
-	size?: BindingOrValue<UDim2>;
-	zIndex?: BindingOrValue<number>;
+	readonly anchorPoint?: BindingOrValue<Vector2>;
+	readonly layoutOrder?: BindingOrValue<number>;
+	readonly position?: BindingOrValue<UDim2>;
+	readonly size?: BindingOrValue<UDim2>;
+	readonly zIndex?: BindingOrValue<number>;
 }
 
 export const Background: Roact.FunctionComponent<BackgroundProperties> = ({

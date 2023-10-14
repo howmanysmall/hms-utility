@@ -1,3 +1,6 @@
+//!native
+//!optimize 2
+
 import { Workspace, HttpService, Lighting } from "@rbxts/services";
 const PhysicsSettings = settings().GetService("PhysicsSettings" as never) as PhysicsSettings;
 const Selection = game.GetService("Selection");
@@ -15,6 +18,7 @@ import promiseSource from "utilities/button-utilities/promise-source";
 import searchForDuplicates from "utilities/button-utilities/search-for-duplicates";
 import smoothNoOutlines from "utilities/button-utilities/smooth-no-outlines";
 import weldTool from "utilities/button-utilities/weld-tool";
+import deleteEmptyModels from "utilities/button-utilities/delete-empty-models";
 
 interface Metadata {
 	/**
@@ -374,6 +378,34 @@ export const UtilityButtonMeta: { [utilityButton in UtilityButton]: Metadata } =
 		shouldRecord: true,
 		text: "Easy Export Color3",
 		tooltip: "Sorts all parts in a given model by Color3 for an easier way to export as a Mesh.",
+	},
+
+	[UtilityButton.DeleteEmptyModels]: {
+		callback: () => {
+			const currentSelection = Selection.Get();
+			// delete under Workspace
+			if (currentSelection.isEmpty()) deleteEmptyModels(Workspace, false);
+			else for (const object of currentSelection) deleteEmptyModels(object, false);
+		},
+
+		name: "DeleteEmptyModels",
+		shouldRecord: true,
+		text: "Delete Empty Models",
+		tooltip: "Deletes all models (and folders) with no children.",
+	},
+
+	[UtilityButton.DeleteEmptyModelsSafe]: {
+		callback: () => {
+			const currentSelection = Selection.Get();
+			// delete under Workspace
+			if (currentSelection.isEmpty()) deleteEmptyModels(Workspace, true);
+			else for (const object of currentSelection) deleteEmptyModels(object, true);
+		},
+
+		name: "DeleteEmptyModelsSafe",
+		shouldRecord: true,
+		text: "Delete Empty Models (Safe)",
+		tooltip: "Moves all models (and folders) with no children to a folder in Workspace.",
 	},
 };
 

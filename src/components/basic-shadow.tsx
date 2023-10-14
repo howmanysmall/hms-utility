@@ -1,11 +1,13 @@
+//!native
+//!optimize 2
 import Roact from "@rbxts/roact";
 import useTheme from "hooks/use-theme";
 
 export interface BasicShadowProperties {
-	position: UDim2;
-	radius: number;
-	size: UDim2;
-	transparency: number;
+	readonly position: UDim2;
+	readonly radius: number;
+	readonly size: UDim2;
+	readonly transparency: number;
 }
 
 export const BasicShadow: Roact.FunctionComponent<BasicShadowProperties> = ({
