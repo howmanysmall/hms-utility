@@ -9,6 +9,8 @@ import ScriptServices from "utilities/button-utilities/script-services";
 import UtilityButton from "./utility-button";
 
 import clearAllEffects from "utilities/button-utilities/clear-all-effects";
+import deleteEmptyFolders from "utilities/button-utilities/delete-empty/delete-empty-folders";
+import deleteEmptyModels from "utilities/button-utilities/delete-empty/delete-empty-models";
 import getOrCreate from "utilities/button-utilities/get-or-create";
 import isSourceContainer from "utilities/button-utilities/is-source-container";
 import organizeByBrickColor from "utilities/button-utilities/organize-by-colors/organize-by-brickcolor";
@@ -18,33 +20,32 @@ import promiseSource from "utilities/button-utilities/promise-source";
 import searchForDuplicates from "utilities/button-utilities/search-for-duplicates";
 import smoothNoOutlines from "utilities/button-utilities/smooth-no-outlines";
 import weldTool from "utilities/button-utilities/weld-tool";
-import deleteEmptyModels from "utilities/button-utilities/delete-empty-models";
 
 interface Metadata {
 	/**
 	 * What will be executed when the button is clicked.
 	 */
-	callback: () => void;
+	readonly callback: () => void;
 
 	/**
 	 * The ChangeHistoryService name.
 	 */
-	name: string;
+	readonly name: string;
 
 	/**
 	 * Whether or not to record the action in the ChangeHistoryService.
 	 */
-	shouldRecord: boolean;
+	readonly shouldRecord: boolean;
 
 	/**
 	 * The text on the button.
 	 */
-	text: string;
+	readonly text: string;
 
 	/**
 	 * The text to show on the tooltip.
 	 */
-	tooltip: string;
+	readonly tooltip: string;
 }
 
 export const UtilityButtonMeta: { [utilityButton in UtilityButton]: Metadata } = {
@@ -391,7 +392,7 @@ export const UtilityButtonMeta: { [utilityButton in UtilityButton]: Metadata } =
 		name: "DeleteEmptyModels",
 		shouldRecord: true,
 		text: "Delete Empty Models",
-		tooltip: "Deletes all models (and folders) with no children.",
+		tooltip: "Deletes all models with no children.",
 	},
 
 	[UtilityButton.DeleteEmptyModelsSafe]: {
@@ -405,7 +406,35 @@ export const UtilityButtonMeta: { [utilityButton in UtilityButton]: Metadata } =
 		name: "DeleteEmptyModelsSafe",
 		shouldRecord: true,
 		text: "Delete Empty Models (Safe)",
-		tooltip: "Moves all models (and folders) with no children to a folder in Workspace.",
+		tooltip: "Moves all models with no children to a folder in Workspace.",
+	},
+
+	[UtilityButton.DeleteEmptyFolders]: {
+		callback: () => {
+			const currentSelection = Selection.Get();
+			// delete under Workspace
+			if (currentSelection.isEmpty()) deleteEmptyFolders(Workspace, false);
+			else for (const object of currentSelection) deleteEmptyFolders(object, false);
+		},
+
+		name: "DeleteEmptyFolders",
+		shouldRecord: true,
+		text: "Delete Empty Folders",
+		tooltip: "Deletes all folders with no children.",
+	},
+
+	[UtilityButton.DeleteEmptyFoldersSafe]: {
+		callback: () => {
+			const currentSelection = Selection.Get();
+			// delete under Workspace
+			if (currentSelection.isEmpty()) deleteEmptyFolders(Workspace, true);
+			else for (const object of currentSelection) deleteEmptyFolders(object, true);
+		},
+
+		name: "DeleteEmptyFoldersSafe",
+		shouldRecord: true,
+		text: "Delete Empty Folders (Safe)",
+		tooltip: "Moves all folders with no children to a folder in Workspace.",
 	},
 };
 

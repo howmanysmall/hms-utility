@@ -9,13 +9,15 @@ export enum UtilityButton {
 	SelectParentOfSelection,
 	CreateAspectRatio,
 	LockAllBaseParts,
-	DeleteEmptyModels,
 	DeleteEmptyModelsSafe,
+	DeleteEmptyModels,
 	ValleyLighting,
 	CreatePrimaryPart,
 	WeldConstraintTools,
 	EasyExport,
 	EasyExportColor3,
+	DeleteEmptyFoldersSafe,
+	DeleteEmptyFolders,
 }
 
 export default UtilityButton;

@@ -2,12 +2,11 @@
 //!optimize 2
 
 import { LocalizationService, Workspace } from "@rbxts/services";
-const VALID_CLASS_NAMES = new Set(["Model", "Folder"]);
 
 export default function deleteEmptyModels(parent: Instance, saveToWorld = false) {
-	const emptyModels = new Set<Model | Folder>();
+	const emptyModels = new Set<Model>();
 	for (const descendant of parent.GetDescendants())
-		if (VALID_CLASS_NAMES.has(descendant.ClassName) && descendant.GetChildren().isEmpty())
+		if (descendant.ClassName === "Model" && descendant.GetChildren().isEmpty())
 			emptyModels.add(descendant as Model);
 
 	if (saveToWorld) {
@@ -18,7 +17,7 @@ export default function deleteEmptyModels(parent: Instance, saveToWorld = false)
 			model.Parent = emptyModelsFolder;
 		}
 
-		emptyModelsFolder.Name = `EmptyModels${DateTime.now().FormatLocalTime(
+		emptyModelsFolder.Name = `EmptyModels-${DateTime.now().FormatLocalTime(
 			"MM.DD.YY@HH.mm.ss",
 			LocalizationService.RobloxLocaleId,
 		)}`;
