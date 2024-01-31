@@ -1,9 +1,10 @@
 //!native
 //!optimize 2
+
 import Roact from "@rbxts/roact";
 import useTheme from "hooks/use-theme";
-import { oneScale } from "utilities/udim2";
 import type { BindingOrValue } from "types/generic";
+import { oneScale } from "utilities/udim2";
 
 export interface BackgroundProperties {
 	readonly anchorPoint?: BindingOrValue<Vector2>;

@@ -10,5 +10,10 @@
 		"editor.formatOnSave": true
 	},
 	"eslint.run": "onType",
-	"eslint.format.enable": true
+	"eslint.format.enable": true,
+	"editor.codeActionsOnSave": {
+		"source.addMissingImports": "explicit",
+		"source.organizeImports": "explicit",
+		"source.fixAll.eslint": "explicit"
+	},
 }

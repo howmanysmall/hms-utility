@@ -15,7 +15,6 @@
 		"roblox-ts",
 		"prettier",
 		"react-hooks",
-		"react-refresh",
 		"unicorn"
 	],
 	"extends": [
@@ -41,10 +40,27 @@
 		],
 
 		"roblox-ts/no-private-identifier": "off",
+		"no-constant-condition": "off",
+		"no-inner-declarations": "off",
 		"unicorn/no-nested-ternary": "off",
 		"unicorn/catch-error-name": "off",
 		"unicorn/no-new-array": "off",
 		"unicorn/prefer-node-protocol": "off",
-		"unicorn/prefer-module": "off"
+		"unicorn/prefer-module": "off",
+		"unicorn/consistent-function-scoping": "off",
+		"unicorn/no-array-callback-reference": "off",
+		"unicorn/no-useless-undefined": "off",
+		"unicorn/prefer-math-trunc": "off",
+		"unicorn/no-array-reduce": "off",
+		"unicorn/require-array-join-separator": "off",
+		"unicorn/empty-brace-spaces": "off",
+		"unicorn/no-unreadable-array-destructuring": "off",
+		"unicorn/number-literal-case": "off",
+		"unicorn/numeric-separators-style": "off",
+		"unicorn/no-array-method-this-argument": "off",
+		"unicorn/prefer-spread": "off",
+		"unicorn/no-array-for-each": "off",
+		"unicorn/switch-case-braces": "off",
+		"unicorn/prefer-array-some": "off"
 	}
 }

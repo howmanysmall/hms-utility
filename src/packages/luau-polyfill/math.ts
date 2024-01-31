@@ -1,5 +1,6 @@
 //!native
 //!optimize 2
+
 import { isFinite, Number } from "./number";
 
 namespace Math {
@@ -11,38 +12,6 @@ namespace Math {
 	export const PI = math.pi;
 	export const SQRT1_2 = math.sqrt(1 / 2);
 	export const SQRT2 = math.sqrt(2);
-
-	export const abs = math.abs;
-	export const acos = math.acos;
-	export const asin = math.asin;
-	export const atan = math.atan;
-	export const atan2 = math.atan2;
-	export const ceil = math.ceil;
-	export const clamp = math.clamp;
-	export const cos = math.cos;
-	export const cosh = math.cosh;
-	export const deg = math.deg;
-	export const exp = math.exp;
-	export const floor = math.floor;
-	export const fmod = math.fmod;
-	export const frexp = math.frexp;
-	export const ldexp = math.ldexp;
-	export const log = math.log;
-	export const log10 = math.log10;
-	export const max = math.max;
-	export const min = math.min;
-	export const modf = math.modf;
-	export const noise = math.noise;
-	export const pow = math.pow;
-	export const rad = math.rad;
-	export const random = math.random;
-	export const randomseed = math.randomseed;
-	export const sign = math.sign;
-	export const sin = math.sin;
-	export const sinh = math.sinh;
-	export const sqrt = math.sqrt;
-	export const tan = math.tan;
-	export const tanh = math.tanh;
 
 	const USE_FAST_CLZ32 = true;
 
@@ -56,7 +25,7 @@ namespace Math {
 				const as32Bit = value >>> 0;
 				if (as32Bit === 0) return 32;
 				return 31 - math.floor(math.log(as32Bit) / LN2);
-		  };
+			};
 
 	export function expm1(value: number) {
 		return math.exp(value) - 1;

@@ -1,5 +1,6 @@
 //!native
 //!optimize 2
+
 import {
 	Chat,
 	Lighting,

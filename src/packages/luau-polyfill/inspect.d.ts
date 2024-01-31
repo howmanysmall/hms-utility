@@ -24,7 +24,7 @@
 // export default inspect;
 
 export interface InspectOptions {
-	depth?: number;
+	readonly depth?: number;
 }
 
 export function inspect(value: unknown, options?: InspectOptions): string;

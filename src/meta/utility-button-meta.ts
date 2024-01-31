@@ -1,13 +1,14 @@
 //!native
 //!optimize 2
 
-import { Workspace, HttpService, Lighting } from "@rbxts/services";
+import { HttpService, Lighting, Workspace } from "@rbxts/services";
 const PhysicsSettings = settings().GetService("PhysicsSettings" as never) as PhysicsSettings;
 const Selection = game.GetService("Selection");
 
 import ScriptServices from "utilities/button-utilities/script-services";
 import UtilityButton from "./utility-button";
 
+import promiseAll from "promises/promise-plus/promise-all";
 import clearAllEffects from "utilities/button-utilities/clear-all-effects";
 import deleteEmptyFolders from "utilities/button-utilities/delete-empty/delete-empty-folders";
 import deleteEmptyModels from "utilities/button-utilities/delete-empty/delete-empty-models";
@@ -15,7 +16,6 @@ import getOrCreate from "utilities/button-utilities/get-or-create";
 import isSourceContainer from "utilities/button-utilities/is-source-container";
 import organizeByBrickColor from "utilities/button-utilities/organize-by-colors/organize-by-brickcolor";
 import organizeByColor3 from "utilities/button-utilities/organize-by-colors/organize-by-color3";
-import promiseAll from "promises/promise-plus/promise-all";
 import promiseSource from "utilities/button-utilities/promise-source";
 import searchForDuplicates from "utilities/button-utilities/search-for-duplicates";
 import smoothNoOutlines from "utilities/button-utilities/smooth-no-outlines";

@@ -1,5 +1,6 @@
 //!native
 //!optimize 2
+
 import { useEffect, useMemo } from "@rbxts/roact";
 
 interface ConnectionLike {
@@ -16,7 +17,7 @@ type InferSignalParameters<S> = S extends SignalLike
 			Parameters<
 				S["Connect"] extends Callback ? S["Connect"] : S["connect"] extends Callback ? S["connect"] : never
 			>
-	  >
+		>
 	: never;
 
 function connect<T extends SignalLike>(event: T, callback: (...signalArguments: InferSignalParameters<T>) => void) {

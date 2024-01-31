@@ -1,13 +1,15 @@
 //!native
 //!optimize 2
+
+const ScriptEditorService = game.GetService("ScriptEditorService");
 import type { SourceContainer } from "./is-source-container";
 
 export default function promiseSource(sourceContainer: SourceContainer) {
 	return new Promise<string>((resolve) => {
-		let source = sourceContainer.Source;
+		let source = ScriptEditorService.GetEditorSource(sourceContainer);
 		if (!source)
 			while (!source) {
-				source = sourceContainer.Source;
+				source = ScriptEditorService.GetEditorSource(sourceContainer);
 				task.wait();
 			}
 

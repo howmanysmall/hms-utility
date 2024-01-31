@@ -1,5 +1,6 @@
 //!native
 //!optimize 2
+
 export enum UtilityButton {
 	SetupGame,
 	FixTabs,

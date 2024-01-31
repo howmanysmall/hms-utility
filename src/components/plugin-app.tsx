@@ -1,5 +1,6 @@
 //!native
 //!optimize 2
+
 import Roact, { useCallback, useMemo } from "@rbxts/roact";
 
 import AutomaticScrollingFrame from "./automatic-scrolling-frame";
@@ -11,10 +12,10 @@ import VirtualScroller from "./virtual-scroller";
 import UtilityButton from "meta/utility-button";
 import UtilityButtonMeta from "meta/utility-button-meta";
 
-import inSortedOrder from "utilities/in-sorted-order";
-import tryLogToHistory from "utilities/try-log-to-history";
 import useDecompositionUpdate from "hooks/use-decomposition-update";
 import useTheme from "hooks/use-theme";
+import inSortedOrder from "utilities/in-sorted-order";
+import tryLogToHistory from "utilities/try-log-to-history";
 
 const PADDING_SCALE = 0.02;
 const BUTTON_HEIGHT = 36;

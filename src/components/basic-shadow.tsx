@@ -1,5 +1,6 @@
 //!native
 //!optimize 2
+
 import Roact from "@rbxts/roact";
 import useTheme from "hooks/use-theme";
 

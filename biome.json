@@ -1,0 +1,30 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
+	"organizeImports": {
+		"enabled": false
+	},
+
+	"formatter": {
+		"enabled": false,
+		"ignore": ["*/**"]
+	},
+
+	"linter": {
+		"enabled": true,
+		"ignore": [".vscode/**", "node_modules/**", "*.code-workspace"],
+		"rules": {
+			"recommended": true,
+			"suspicious": {
+				"noAssignInExpressions": "off",
+				"noConfusingVoidType": "off",
+				"noShadowRestrictedNames": "off",
+				"noExplicitAny": "off"
+			},
+
+			"style": {
+				"noNonNullAssertion": "off",
+				"noParameterAssign": "off"
+			}
+		}
+	}
+}

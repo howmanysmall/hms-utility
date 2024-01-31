@@ -1,5 +1,6 @@
 //!native
 //!optimize 2
+
 import { Lighting } from "@rbxts/services";
 
 export default function clearAllEffects() {

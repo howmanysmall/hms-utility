@@ -17,13 +17,11 @@ Error.__tostring = function(self)
 end
 
 function Error.new(message: string?): Error
-	return (
-		setmetatable({
-			name = DEFAULT_NAME;
-			message = message or "";
-			stack = debug.traceback(nil, 2);
-		}, Error) :: any
-	) :: Error
+	return (setmetatable({
+		name = DEFAULT_NAME;
+		message = message or "";
+		stack = debug.traceback(nil, 2);
+	}, Error) :: any) :: Error
 end
 
 return table.freeze({

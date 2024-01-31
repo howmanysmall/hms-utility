@@ -1,5 +1,6 @@
 //!native
 //!optimize 2
+
 import { HttpService } from "@rbxts/services";
 
 export interface RequestAsyncOptions {

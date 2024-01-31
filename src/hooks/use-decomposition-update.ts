@@ -1,10 +1,11 @@
 //!native
 //!optimize 2
-import { Workspace } from "@rbxts/services";
-const PhysicsSettings = settings().GetService("PhysicsSettings" as never) as PhysicsSettings;
 
 import { useCallback, useEffect, useRef } from "@rbxts/roact";
+import { Workspace } from "@rbxts/services";
 import useEventConnection from "./use-event-connection";
+
+const PhysicsSettings = settings().GetService("PhysicsSettings" as never) as PhysicsSettings;
 
 export function useDecompositionUpdate() {
 	const hasRanYet = useRef(false);

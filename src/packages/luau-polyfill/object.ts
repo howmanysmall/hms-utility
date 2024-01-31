@@ -1,5 +1,6 @@
 //!native
 //!optimize 2
+
 namespace Object {
 	const safeEquals = (a: unknown, b: unknown) => {
 		if (a === 0 && b === 0) return 1 / a === 1 / b;

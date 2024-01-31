@@ -1,5 +1,6 @@
 //!native
 //!optimize 2
+
 import Roact from "@rbxts/roact";
 import ErrorBoundary from "packages/react-error-boundary/error-boundary";
 import FallbackResetBoundary from "./fallback-reset-boundary";

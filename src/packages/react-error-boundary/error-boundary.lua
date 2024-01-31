@@ -1,5 +1,6 @@
 --!native
 --!optimize 2
+
 local ErrorBoundaryContext = require(script.Parent:FindFirstChild("error-boundary-context")).default
 local Packages = require(script.Parent.packages)
 

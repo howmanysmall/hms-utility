@@ -1,11 +1,12 @@
 //!native
 //!optimize 2
+
 import Roact from "@rbxts/roact";
 
 export interface ErrorBoundaryContextType {
-	didCatch: boolean;
-	error: unknown;
-	resetErrorBoundary: Callback;
+	readonly didCatch: boolean;
+	readonly error: unknown;
+	readonly resetErrorBoundary: Callback;
 }
 
 export const ErrorBoundaryContext = Roact.createContext<ErrorBoundaryContextType | undefined>(undefined);

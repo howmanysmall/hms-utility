@@ -1,8 +1,9 @@
 //!native
 //!optimize 2
 /* eslint-disable unicorn/prefer-export-from */
-import { clearInterval, setInterval, IntervalTask } from "./interval";
-import { clearTimeout, setTimeout, TimerTask } from "./timer";
+
+import { IntervalTask, clearInterval, setInterval } from "./interval";
+import { TimerTask, clearTimeout, setTimeout } from "./timer";
 
 namespace Timers {
 	export const ClearInterval = clearInterval;

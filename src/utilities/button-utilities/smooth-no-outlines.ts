@@ -1,5 +1,6 @@
 //!native
 //!optimize 2
+
 export default function smoothNoOutlines(basePart: BasePart) {
 	basePart.BackSurface = Enum.SurfaceType.SmoothNoOutlines;
 	basePart.BottomSurface = Enum.SurfaceType.SmoothNoOutlines;

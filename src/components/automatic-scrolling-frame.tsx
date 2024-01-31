@@ -1,5 +1,6 @@
 //!native
 //!optimize 2
+
 import Roact, { useMemo } from "@rbxts/roact";
 import useTheme from "hooks/use-theme";
 import { oneScale } from "utilities/udim2";
@@ -21,7 +22,7 @@ export const AutomaticScrollingFrame: Roact.FunctionComponent<AutomaticScrolling
 	const children = useMemo(() => {
 		const children = new Array<Roact.Element>(itemCount);
 
-		for (const index of $range(1, itemCount)) {
+		for (const index of $range(1, itemCount))
 			children[index - 1] = (
 				<frame
 					BackgroundTransparency={1}
@@ -32,7 +33,6 @@ export const AutomaticScrollingFrame: Roact.FunctionComponent<AutomaticScrolling
 					{renderItem(index)}
 				</frame>
 			);
-		}
 
 		return children;
 	}, [itemCount, itemHeight, renderItem]);

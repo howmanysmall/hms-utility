@@ -122,10 +122,7 @@ local function isArray(value: any)
 	return sum == count * (count + 1) / 2
 end
 
-local CONCAT_BAD_OBJECT = "Array.concat(...) only works with array-like tables but "
-	.. "it received an object-like table.\nYou can avoid this error by wrapping the "
-	.. "object-like table into an array. Example: `concat({1, 2}, {a = true})` should "
-	.. "be `concat({1, 2}, { {a = true} }`"
+local CONCAT_BAD_OBJECT = "Array.concat(...) only works with array-like tables but " .. "it received an object-like table.\nYou can avoid this error by wrapping the " .. "object-like table into an array. Example: `concat({1, 2}, {a = true})` should " .. "be `concat({1, 2}, { {a = true} }`"
 
 local function concat<T, S>(source: {T} | T, ...: {S} | S): {T} & {S}
 	local array

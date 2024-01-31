@@ -1,9 +1,10 @@
 //!native
 //!optimize 2
+
+import { useSpring } from "@rbxts/rbx-react-spring";
 import Roact, { useCallback } from "@rbxts/roact";
 import useBasicInputEvents from "hooks/use-basic-input-events";
 import useTheme from "hooks/use-theme";
-import { useSpring } from "@rbxts/rbx-react-spring";
 import { oneScale } from "utilities/udim2";
 
 export interface ButtonProperties {
@@ -21,9 +22,8 @@ export const Button: Roact.FunctionComponent<ButtonProperties> = ({
 	onActivated = () => {},
 }) => {
 	const { button, buttonBorder, buttonText, fontFaces, springConfigs, textSize } = useTheme();
-	const { hovered, pressed, onInputBegan, onInputEnded, setHovered, setPressed } = useBasicInputEvents<TextButton>(
-		!disabled,
-	);
+	const { hovered, pressed, onInputBegan, onInputEnded, setHovered, setPressed } =
+		useBasicInputEvents<TextButton>(!disabled);
 
 	const buttonOnActivated = useCallback(() => {
 		if (!disabled) {
@@ -36,12 +36,12 @@ export const Button: Roact.FunctionComponent<ButtonProperties> = ({
 	const modifier = disabled
 		? "disabled"
 		: selected
-		? "selected"
-		: pressed
-		? "pressed"
-		: hovered
-		? "hover"
-		: "default";
+			? "selected"
+			: pressed
+				? "pressed"
+				: hovered
+					? "hover"
+					: "default";
 
 	const { backgroundColor3, borderColor3, textColor3 } = useSpring(
 		{

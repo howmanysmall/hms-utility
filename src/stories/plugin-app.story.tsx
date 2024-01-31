@@ -1,12 +1,13 @@
 //!native
 //!optimize 2
-import Roact from "@rbxts/roact";
+
 import * as ReactRoblox from "@rbxts/react-roblox";
-import type { ReactStory } from "types/flipbook";
+import Roact from "@rbxts/roact";
 import App from "components/app";
 import PluginApp from "components/plugin-app";
-import { center } from "utilities/vector2";
+import type { ReactStory } from "types/flipbook";
 import { centerScale } from "utilities/udim2";
+import { center } from "utilities/vector2";
 
 const PluginAppStory: ReactStory = {
 	name: "PluginApp.story",
@@ -26,7 +27,7 @@ const PluginAppStory: ReactStory = {
 		</App>
 	),
 
-	summary: `This is the component that renders the plugin.`,
+	summary: "This is the component that renders the plugin.",
 };
 
 export = PluginAppStory;

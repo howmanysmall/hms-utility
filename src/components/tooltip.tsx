@@ -1,15 +1,16 @@
 //!native
 //!optimize 2
 /* eslint-disable unicorn/no-array-callback-reference */
+
 import Roact, { useBinding, useCallback, useEffect, useRef, useState } from "@rbxts/roact";
 
-import BasicShadow from "./basic-shadow";
 import useTheme from "hooks/use-theme";
+import BasicShadow from "./basic-shadow";
 
 import { console } from "packages/luau-polyfill";
-import { fromVector3XYNoCache } from "utilities/vector2";
-import { offset, offsetFromVector2, oneOffset, oneScale } from "utilities/udim2";
 import { promiseTextSize } from "promises/text-service-promise";
+import { offset, offsetFromVector2, oneOffset, oneScale } from "utilities/udim2";
+import { fromVector3XYNoCache } from "utilities/vector2";
 
 const BUFFER = 3;
 

@@ -1,8 +1,9 @@
 //!native
 //!optimize 2
-import BaseTheme from "./base-theme";
-import { camelCase } from "utilities/string-utilities";
+
 import type { CamelCaseObjectKeys } from "types/advanced-types";
+import { camelCase } from "utilities/string-utilities";
+import BaseTheme from "./base-theme";
 
 export type StudioStyleGuideColors = Enum.StudioStyleGuideColor["Name"];
 export type StudioStyleGuideModifiers = Enum.StudioStyleGuideModifier["Name"];

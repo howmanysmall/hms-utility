@@ -1,8 +1,10 @@
 //!native
 //!optimize 2
+
 namespace Number {
 	export const MAX_SAFE_INTEGER = 9_007_199_254_740_991;
 	export const MIN_SAFE_INTEGER = -9_007_199_254_740_991;
+	// eslint-disable-next-line no-shadow-restricted-names
 	export const NaN = 0 / 0;
 
 	export function isFinite(value: unknown): value is number {

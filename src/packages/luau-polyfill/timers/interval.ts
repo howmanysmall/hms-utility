@@ -1,5 +1,6 @@
 //!native
 //!optimize 2
+
 import CreateSymbol from "./create-symbol";
 
 const Status = CreateSymbol();

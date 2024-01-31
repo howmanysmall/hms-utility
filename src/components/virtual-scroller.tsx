@@ -1,9 +1,10 @@
 //!native
 //!optimize 2
+
 import Roact, { useCallback, useState } from "@rbxts/roact";
 import useTheme from "hooks/use-theme";
-import { oneScale } from "utilities/udim2";
 import type { BindingOrValue } from "types/generic";
+import { oneScale } from "utilities/udim2";
 
 export interface VirtualScrollerProperties {
 	readonly layoutOrder?: BindingOrValue<number>;
@@ -49,7 +50,7 @@ export const VirtualScroller: Roact.FunctionComponent<VirtualScrollerProperties>
 
 	const padding = (minIndex - 1) * itemHeight;
 	const children = new Array<Roact.Element>(maxIndex - minIndex + 4);
-	for (const index of $range(minIndex, maxIndex)) {
+	for (const index of $range(minIndex, maxIndex))
 		children[index - minIndex] = (
 			<frame
 				BackgroundTransparency={1}
@@ -60,7 +61,6 @@ export const VirtualScroller: Roact.FunctionComponent<VirtualScrollerProperties>
 				{renderItem(index)}
 			</frame>
 		);
-	}
 
 	children.push(
 		<uilistlayout
