@@ -12,18 +12,20 @@
 	],
 	"plugins": [
 		"@typescript-eslint",
-		"roblox-ts",
 		"prettier",
 		"react-hooks",
-		"unicorn"
+		"roblox-ts",
+		"unicorn",
+		"perfectionist"
 	],
 	"extends": [
 		"eslint:recommended",
 		"plugin:@typescript-eslint/recommended",
-		"plugin:roblox-ts/recommended",
 		"plugin:prettier/recommended",
 		"plugin:react-hooks/recommended",
-		"plugin:unicorn/recommended"
+		"plugin:roblox-ts/recommended",
+		"plugin:unicorn/recommended",
+		"plugin:perfectionist/recommended-natural"
 	],
 	"rules": {
 		"prettier/prettier": [
@@ -61,6 +63,15 @@
 		"unicorn/prefer-spread": "off",
 		"unicorn/no-array-for-each": "off",
 		"unicorn/switch-case-braces": "off",
-		"unicorn/prefer-array-some": "off"
+		"unicorn/prefer-array-some": "off",
+		"perfectionist/sort-objects": [
+			"error",
+			{
+				"type": "natural",
+				"order": "asc"
+			}
+		],
+		"perfectionist/sort-named-imports": "off",
+		"perfectionist/sort-imports": "off"
 	}
 }
