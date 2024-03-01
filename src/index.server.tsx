@@ -2,6 +2,7 @@
 //!optimize 2
 
 import React from "@rbxts/react";
+import ReactTree from "@rbxts/react-tree";
 import App from "components/app";
 import PluginApp from "components/plugin-app";
 import createSharedToolbar, { type SharedToolbarSettings } from "utilities/create-shared-toolbar";
@@ -30,7 +31,7 @@ function main() {
 	dockWidget.Title = "HmsWidget";
 	dockWidget.ZIndexBehavior = Enum.ZIndexBehavior.Sibling;
 
-	const tree = Roact.mount(
+	const tree = ReactTree.mount(
 		<App>
 			<PluginApp key="PluginApp" />
 		</App>,
@@ -38,7 +39,7 @@ function main() {
 		"Main",
 	);
 
-	plugin.Unloading.Once(() => Roact.unmount(tree));
+	plugin.Unloading.Once(() => ReactTree.unmount(tree));
 
 	return 0;
 }

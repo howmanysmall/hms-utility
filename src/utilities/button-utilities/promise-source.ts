@@ -10,7 +10,7 @@ export default function promiseSource(sourceContainer: SourceContainer) {
 		if (!source)
 			while (!source) {
 				source = ScriptEditorService.GetEditorSource(sourceContainer);
-				task.wait();
+				task.wait(1 / 60);
 			}
 
 		resolve(source);

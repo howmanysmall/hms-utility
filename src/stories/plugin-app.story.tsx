@@ -11,7 +11,7 @@ import { center } from "utilities/vector2";
 
 const PluginAppStory: ReactStory = {
 	name: "PluginApp.story",
-	react: Roact,
+	react: React,
 	reactRoblox: ReactRoblox,
 	story: (
 		<App useStrictMode>

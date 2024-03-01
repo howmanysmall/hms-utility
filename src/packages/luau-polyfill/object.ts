@@ -1,12 +1,14 @@
 //!native
+//!nonstrict
 //!optimize 2
 
 namespace Object {
-	const safeEquals = (a: unknown, b: unknown) => {
+	function safeEquals(a: unknown, b: unknown) {
 		if (a === 0 && b === 0) return 1 / a === 1 / b;
-		else if (a !== a && b !== b) return true;
-		else return a === b;
-	};
+		// biome-ignore lint/suspicious/noSelfCompare: NaN check.
+		if (a !== a && b !== b) return true;
+		return a === b;
+	}
 
 	/**
 	 * Returns true if the values are the same value, false otherwise.
@@ -14,7 +16,9 @@ namespace Object {
 	 * @param b
 	 * @returns
 	 */
-	export const is = (a: unknown, b: unknown) => (a === b ? true : safeEquals(a, b));
+	export function is(a: unknown, b: unknown) {
+		return a === b ? a !== 0 || 1 / a === 1 / (b as typeof a) : safeEquals(a, b);
+	}
 }
 
 export = Object;

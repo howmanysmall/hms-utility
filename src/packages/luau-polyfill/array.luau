@@ -1,6 +1,5 @@
 --!native
 --!optimize 2
---- @typecheck mode: nocheck
 local ERRORS_ARE_THROWN = true
 
 type Array<T> = {T}
@@ -82,7 +81,7 @@ local function filter<T, U>(t: Array<T>, callback: callbackFn<T> | callbackFnWit
 end
 
 type PredicateFunction<T> = (value: T, index: number, array: Array<T>) -> boolean
-local function find<T>(array: Array<T>, predicate: PredicateFunction<T>): T | nil
+local function find<T>(array: Array<T>, predicate: PredicateFunction<T>): T?
 	for i = 1, #array do
 		local element = array[i]
 		if predicate(element, i, array) then
@@ -91,6 +90,17 @@ local function find<T>(array: Array<T>, predicate: PredicateFunction<T>): T | ni
 	end
 
 	return nil
+end
+
+local function findIndex<T>(array: Array<T>, predicate: PredicateFunction<T>): number
+	for i = 1, #array do
+		local element = array[i]
+		if predicate(element, i, array) then
+			return i
+		end
+	end
+
+	return -1
 end
 
 local function isArray(value: any)
@@ -122,7 +132,43 @@ local function isArray(value: any)
 	return sum == count * (count + 1) / 2
 end
 
-local CONCAT_BAD_OBJECT = "Array.concat(...) only works with array-like tables but " .. "it received an object-like table.\nYou can avoid this error by wrapping the " .. "object-like table into an array. Example: `concat({1, 2}, {a = true})` should " .. "be `concat({1, 2}, { {a = true} }`"
+local function isArrayValidator(array: any, validate: (value: unknown) -> boolean)
+	if type(array) ~= "table" then
+		return false
+	end
+
+	if next(array) == nil then
+		return true
+	end
+
+	local length = #array
+	if length == 0 then
+		return false
+	end
+
+	local count = 0
+	local sum = 0
+
+	for key, value in pairs(array) do
+		if type(key) ~= "number" or key % 1 ~= 0 or key < 1 then
+			return false
+		end
+
+		if not validate(value) then
+			return false
+		end
+
+		count += 1
+		sum += key
+	end
+
+	return sum == count * (count + 1) / 2
+end
+
+local CONCAT_BAD_OBJECT = "Array.concat(...) only works with array-like tables but "
+	.. "it received an object-like table.\nYou can avoid this error by wrapping the "
+	.. "object-like table into an array. Example: `concat({1, 2}, {a = true})` should "
+	.. "be `concat({1, 2}, { {a = true} }`"
 
 local function concat<T, S>(source: {T} | T, ...: {S} | S): {T} & {S}
 	local array
@@ -248,7 +294,7 @@ local function splice<T>(array: {T}, start: number, deleteCount: number?, ...: T
 end
 
 local function DEFAULT_SORT(a, b)
-	return type(a) .. tostring(a) < type(b) .. tostring(b)
+	return `{type(a)}{a}` < `{type(b)}{b}`
 end
 
 local function sort<T>(array: {T}, compare: nil | (a: any, b: any) -> number)
@@ -296,15 +342,101 @@ local function some<T, U>(t: Array<T>, callback: callbackFn<T> | callbackFnWithT
 	return false
 end
 
+local function indexOf<T>(array: {T}, searchElement: T, fromIndex: number?)
+	local trueFromIndex = if fromIndex then fromIndex else 1
+
+	if trueFromIndex < 1 then
+		trueFromIndex = math.max(#array - math.abs(trueFromIndex), 1)
+	end
+
+	return table.find(array, searchElement, trueFromIndex) or -1
+end
+
+type callbackFnMap<T, U> = (element: T, index: number, array: Array<T>) -> U
+type callbackFnWithThisArgMap<T, U, V> = (thisArg: V, element: T, index: number, array: Array<T>) -> U
+local function map<T, U, V>(t: Array<T>, callback, thisArg: V?): Array<U>
+	if _G.__DEV__ then
+		if typeof(t) ~= "table" then
+			error(string.format("Array.map called on %s", typeof(t)))
+		end
+		if typeof(callback) ~= "function" then
+			error("callback is not a function")
+		end
+	end
+
+	local len = #t
+	local A = {}
+	local k = 1
+
+	while k <= len do
+		local kValue = t[k]
+
+		if kValue ~= nil then
+			local mappedValue
+
+			if thisArg ~= nil then
+				mappedValue = (callback :: never)(thisArg, kValue, k, t)
+			else
+				mappedValue = (callback :: never)(kValue, k, t)
+			end
+
+			A[k] = mappedValue
+		end
+		k += 1
+	end
+
+	return A
+end
+
+local function reduce<T, U>(array: Array<T>, callback, initialValue: U?): U
+	if _G.__DEV__ then
+		if type(array) ~= "table" then
+			error(string.format("Array.reduce called on %s", typeof(array)))
+		end
+
+		if type(callback) ~= "function" then
+			error("callback is not a function")
+		end
+	end
+
+	local length = #array
+
+	local value: T | U
+	local initial = 1
+
+	if initialValue ~= nil then
+		value = initialValue
+	else
+		initial = 2
+		if length == 0 then
+			error("reduce of empty array with no initial value")
+		end
+
+		value = array[1]
+	end
+
+	for i = initial, length do
+		value = callback(value :: U, array[i], i, array)
+	end
+
+	return value :: U
+end
+
 return table.freeze({
 	concat = concat;
 	every = every;
 	filter = filter;
 	find = find;
 	isArray = isArray;
+	isArrayValidator = isArrayValidator;
 	reverse = reverse;
 	slice = slice;
 	some = some;
 	sort = sort;
 	splice = splice;
+
+	findIndex = findIndex;
+	indexOf = indexOf;
+	map = map;
+	reduce = reduce;
 })

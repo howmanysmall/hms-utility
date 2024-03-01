@@ -9,9 +9,9 @@ export interface SharedToolbarSettings {
 	readonly buttonName: string;
 	readonly buttonTooltip: string;
 	readonly combinerName: string;
-	readonly toolbarName: string;
-
 	readonly onClicked: () => void;
+
+	readonly toolbarName: string;
 }
 
 function getOrCreate<T extends keyof CreatableInstances>(

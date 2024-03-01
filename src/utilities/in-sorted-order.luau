@@ -9,7 +9,7 @@ local function alphabetically(a, b)
 		if typeA == "number" then
 			return (a :: number) < b :: number
 		else
-			return string.lower(tostring(a)) < string.lower(tostring(b))
+			return string.lower(`{a}`) < string.lower(`{b}`)
 		end
 	else
 		return typeA < typeB

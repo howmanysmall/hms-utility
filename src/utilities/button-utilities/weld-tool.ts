@@ -3,7 +3,7 @@
 
 export default function weldTool(tool: Tool) {
 	const handle = tool.FindFirstChild("Handle");
-	if (handle && handle.IsA("BasePart"))
+	if (handle?.IsA("BasePart"))
 		for (const descendant of tool.GetDescendants()) {
 			if (descendant === handle || !descendant.IsA("BasePart")) continue;
 

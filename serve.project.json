@@ -1,15 +1,12 @@
 {
 	"name": "HmsUtilityServe",
 	"servePort": 25565,
-	"globIgnorePaths": [
-		"**/package.json",
-		"**/tsconfig.json"
-	],
+	"globIgnorePaths": ["**/package.json", "**/tsconfig.json"],
 	"tree": {
 		"$className": "DataModel",
 		"ServerStorage": {
 			"$className": "ServerStorage",
-			"HmsPlugin": {
+			"HmsUtility": {
 				"$path": "./default.project.json"
 			}
 		}

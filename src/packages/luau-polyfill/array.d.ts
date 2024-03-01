@@ -1,19 +1,27 @@
 // TODO: finish the rest of the array polyfill
 
+import { t } from "@rbxts/t";
+
 declare namespace Array {
 	/**
 	 * Combines two or more arrays.
 	 * @param items Additional items to add to the end of source.
 	 */
 	export function concat<T>(this: void, source: Array<T>, ...items: Array<Array<T>>): Array<T>;
+	export function concat<T>(
+		this: void,
+		source: ReadonlyArray<T>,
+		...items: ReadonlyArray<ReadonlyArray<T>>
+	): ReadonlyArray<T>;
 
 	/**
 	 * Combines two or more arrays.
 	 * @param items Additional items to add to the end of source.
 	 */
-	export function concat<T>(this: void, source: Array<T>, ...items: Array<T | Array<T>>): Array<T>;
+	export function concat<T>(this: void, source: Array<T>, ...items: Array<Array<T> | T>): Array<T>;
 
 	export function isArray<T>(this: void, argument: unknown): argument is Array<T>;
+	export function isArrayValidator<T>(this: void, argument: unknown, validate: t.check<T>): argument is Array<T>;
 
 	/**
 	 * Reverses the elements in an Array.
@@ -67,7 +75,7 @@ declare namespace Array {
 		this: void,
 		array: Array<T>,
 		predicate: (value: T, index: number, array: Array<T>) => unknown,
-		thisArg?: any,
+		thisArgument?: any,
 	): boolean;
 }
 

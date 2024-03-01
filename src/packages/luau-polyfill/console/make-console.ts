@@ -1,4 +1,5 @@
 //!native
+//!nonstrict
 //!optimize 2
 
 import inspect from "../inspect";
@@ -6,7 +7,7 @@ import FormatParameters from "./format-parameters";
 
 const INDENT = "  ";
 
-export = function () {
+export = () => {
 	let indentDepth = 0;
 	const indent = () => INDENT.rep(indentDepth);
 
