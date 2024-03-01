@@ -1,7 +1,7 @@
 //!native
 //!optimize 2
 
-import { useCallback, useEffect, useRef } from "@rbxts/roact";
+import { useCallback, useEffect, useRef } from "@rbxts/react";
 import { Workspace } from "@rbxts/services";
 import useEventConnection from "./use-event-connection";
 

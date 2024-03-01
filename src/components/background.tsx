@@ -1,12 +1,12 @@
 //!native
 //!optimize 2
 
-import Roact from "@rbxts/roact";
+import React from "@rbxts/react";
 import useTheme from "hooks/use-theme";
 import type { BindingOrValue } from "types/generic";
 import { oneScale } from "utilities/udim2";
 
-export interface BackgroundProperties {
+export interface BackgroundProperties extends React.PropsWithChildren {
 	readonly anchorPoint?: BindingOrValue<Vector2>;
 	readonly layoutOrder?: BindingOrValue<number>;
 	readonly position?: BindingOrValue<UDim2>;
@@ -14,14 +14,14 @@ export interface BackgroundProperties {
 	readonly zIndex?: BindingOrValue<number>;
 }
 
-export const Background: Roact.FunctionComponent<BackgroundProperties> = ({
+export function BackgroundNoMemo({
 	anchorPoint,
 	children,
 	layoutOrder,
 	position,
 	size = oneScale,
 	zIndex,
-}) => {
+}: BackgroundProperties): React.Element {
 	const { mainBackground } = useTheme();
 	return (
 		<frame
@@ -36,6 +36,8 @@ export const Background: Roact.FunctionComponent<BackgroundProperties> = ({
 			{children}
 		</frame>
 	);
-};
+}
 
-export default Roact.memo(Background);
+export const Background = React.memo(BackgroundNoMemo);
+Background.displayName = "Background";
+export default Background;

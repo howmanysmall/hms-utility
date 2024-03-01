@@ -1,7 +1,7 @@
 //!native
 //!optimize 2
 
-import { useEffect, useMemo, useState } from "@rbxts/roact";
+import { useEffect, useMemo, useState } from "@rbxts/react";
 import getTheme from "utilities/get-theme";
 
 export function useTheme() {

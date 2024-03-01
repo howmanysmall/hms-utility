@@ -1,8 +1,9 @@
 //!native
+//!nonstrict
 //!optimize 2
 
-import Roact from "@rbxts/roact";
-import type { Error } from "packages/luau-polyfill";
+import React from "@rbxts/react";
+import type { Error } from "../luau-polyfill";
 
 type FallbackRender = (properties: FallbackProperties) => unknown;
 
@@ -10,30 +11,37 @@ type FallbackRender = (properties: FallbackProperties) => unknown;
  * Props for fallback components.
  */
 export interface FallbackProperties {
-	error: Error;
+	readonly error: Error;
 
 	/**
 	 * Resets the error boundary and calls `onReset` if provided. This is useful for reverting state or retrying the render.
 	 */
-	resetErrorBoundary: Callback;
+	readonly resetErrorBoundary: Callback;
 }
 
 interface ErrorBoundarySharedProperties {
-	onError?: (error: Error, info: { componentStack: string }) => void;
-	onReset?: (
+	readonly onError?: (error: Error, info: { componentStack: string }) => void;
+	readonly onReset?: (
 		details:
-			| { reason: "imperative-api"; args: Array<unknown> }
-			| { reason: "keys"; prev?: Array<unknown>; next?: Array<unknown> },
+			| {
+					readonly args: Array<unknown>;
+					readonly reason: "imperative-api";
+			  }
+			| {
+					readonly next?: Array<unknown>;
+					readonly prev?: Array<unknown>;
+					readonly reason: "keys";
+			  },
 	) => void;
 
-	resetKeys?: Array<unknown>;
+	readonly resetKeys?: Array<unknown>;
 }
 
 /**
  * One of 3 types of fallback that can be provided to an error boundary.
  */
 export interface ErrorBoundaryPropertiesWithComponent extends ErrorBoundarySharedProperties {
-	FallbackComponent: Roact.FunctionComponent;
+	readonly FallbackComponent: React.FunctionComponent;
 }
 
 /**
@@ -47,14 +55,14 @@ export interface ErrorBoundaryPropertiesWithComponent extends ErrorBoundaryShare
  * Render prop functions are normal functions and are not React components. Attempting to use hooks in them will error!
  */
 export interface ErrorBoundaryPropertiesWithRender extends ErrorBoundarySharedProperties {
-	fallbackRender: FallbackRender;
+	readonly fallbackRender: FallbackRender;
 }
 
 export interface ErrorBoundaryPropertiesWithFallback extends ErrorBoundarySharedProperties {
-	fallback: Roact.Element;
+	readonly fallback: React.Element;
 }
 
 export type ErrorBoundaryProperties =
+	| ErrorBoundaryPropertiesWithComponent
 	| ErrorBoundaryPropertiesWithFallback
-	| ErrorBoundaryPropertiesWithRender
-	| ErrorBoundaryPropertiesWithComponent;
+	| ErrorBoundaryPropertiesWithRender;

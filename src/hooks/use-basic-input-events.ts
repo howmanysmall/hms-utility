@@ -1,7 +1,7 @@
 //!native
 //!optimize 2
 
-import { useCallback, useState } from "@rbxts/roact";
+import { useCallback, useState } from "@rbxts/react";
 import type { OnInput } from "types/generic";
 
 export function useBasicInputEvents<T extends GuiObject>(canRun?: boolean) {
@@ -30,9 +30,9 @@ export function useBasicInputEvents<T extends GuiObject>(canRun?: boolean) {
 
 	return table.freeze({
 		hovered,
-		pressed,
 		onInputBegan,
 		onInputEnded,
+		pressed,
 
 		setHovered,
 		setPressed,

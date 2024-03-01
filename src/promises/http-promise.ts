@@ -4,14 +4,14 @@
 import { HttpService } from "@rbxts/services";
 
 export interface RequestAsyncOptions {
-	method?: RequestAsyncRequest["Method"];
-	headers?: HttpHeaders;
 	body?: string;
-	timeout?: number;
+	cache?: boolean | number;
+	headers?: HttpHeaders;
+	method?: RequestAsyncRequest["Method"];
+	resolve2xxOnly?: boolean;
 	retries?: number;
 	retryDelay?: number;
-	resolve2xxOnly?: boolean;
-	cache?: boolean | number;
+	timeout?: number;
 }
 
 interface Url {
@@ -29,12 +29,12 @@ const APPROVED_DOMAINS = new Set<string>();
 const CACHED_DATA = new Map<string, Map<string, CacheEntry>>();
 const SENSIBLE_DEFAULT_CACHE = 300;
 const DEFAULT_OPTIONS: RequestAsyncOptions = {
+	cache: true,
 	method: "GET",
-	timeout: 30,
+	resolve2xxOnly: false,
 	retries: 2,
 	retryDelay: 10,
-	resolve2xxOnly: false,
-	cache: true,
+	timeout: 30,
 };
 
 function parseUrl(url: string): Url {
@@ -42,9 +42,9 @@ function parseUrl(url: string): Url {
 	const protocol = url.match("^(%w+)://")[0] ?? "https";
 
 	return {
-		domain: tostring(domain).lower(),
-		path: tostring(path),
-		protocol: tostring(protocol),
+		domain: `${domain}`.lower(),
+		path: `${path}`,
+		protocol: `${protocol}`,
 	};
 }
 

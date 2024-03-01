@@ -1,19 +1,19 @@
 {
 	"React Flipbook Story": {
-		"prefix": ["flipbookreact"],
-		"description": "Creates a Flipbook React story.",
 		"body": [
-			"import Roact from \"@rbxts/roact\";",
-			"import * as ReactRoblox from \"@rbxts/react-roblox\";",
-			"import type { ReactStory } from \"types/flipbook\";",
+			"//!native",
+			"//!optimize 2",
 			"",
-			"const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}Component = Roact.memo(() => {",
+			"import React from \"@rbxts/react\";",
+			"import * as ReactRoblox from \"@rbxts/react-roblox\";",
+			"",
+			"const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}Component = React.memo(() => {",
 			"\treturn <></>;",
 			"});",
 			"",
 			"const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}: ReactStory = {",
 			"\tname: \"${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}.story\",",
-			"\treact: Roact,",
+			"\treact: React,",
 			"\treactRoblox: ReactRoblox,",
 			"\tstory: <${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}Component />,",
 			"\tsummary: `${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g} story.`,",
@@ -21,6 +21,9 @@
 			"",
 			"export = ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g};",
 			"",
-		]
+		],
+
+		"description": "Creates a Flipbook React story.",
+		"prefix": ["flipbookreact"],
 	},
 }

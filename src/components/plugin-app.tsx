@@ -1,7 +1,7 @@
 //!native
 //!optimize 2
 
-import Roact, { useCallback, useMemo } from "@rbxts/roact";
+import React, { useCallback, useMemo } from "@rbxts/react";
 
 import AutomaticScrollingFrame from "./automatic-scrolling-frame";
 import Background from "./background";
@@ -22,10 +22,10 @@ const BUTTON_HEIGHT = 36;
 const BUTTON_SIZE = new UDim2(1, 0, 0, BUTTON_HEIGHT);
 const USE_VIRTUAL_SCROLLER = true;
 
-export const PluginApp: Roact.FunctionComponent = () => {
+export function PluginAppNoMemo(): React.Element {
 	const { fontFaces, mainText } = useTheme();
 	const [buttons, length] = useMemo(() => {
-		const buttons = new Array<Roact.Element>();
+		const buttons = new Array<React.Element>();
 		let length = 0;
 
 		for (const [, utilityButton] of inSortedOrder(UtilityButton, (a, b) => UtilityButton[a] < UtilityButton[b])) {
@@ -99,6 +99,8 @@ export const PluginApp: Roact.FunctionComponent = () => {
 			</frame>
 		</Background>
 	);
-};
+}
 
-export default Roact.memo(PluginApp);
+export const PluginApp = React.memo(PluginAppNoMemo);
+PluginApp.displayName = "PluginApp";
+export default PluginApp;

@@ -1,7 +1,7 @@
 //!native
 //!optimize 2
 
-import { useEffect, useMemo } from "@rbxts/roact";
+import { useEffect, useMemo } from "@rbxts/react";
 
 interface ConnectionLike {
 	Disconnect(): void;
@@ -24,10 +24,14 @@ function connect<T extends SignalLike>(event: T, callback: (...signalArguments: 
 	if ("Connect" in event) {
 		assert(typeIs(event.Connect, "function"), "not a function");
 		return event.Connect(callback);
-	} else if ("connect" in event) {
+	}
+
+	if ("connect" in event) {
 		assert(typeIs(event.connect, "function"), "not a function");
 		return event.connect(callback);
-	} else return { Disconnect() {} };
+	}
+
+	return { Disconnect() {} };
 }
 
 export function useEventConnection<T extends SignalLike>(

@@ -1,7 +1,7 @@
 //!native
 //!optimize 2
 
-import Roact from "@rbxts/roact";
+import React from "@rbxts/react";
 import App from "components/app";
 import PluginApp from "components/plugin-app";
 import createSharedToolbar, { type SharedToolbarSettings } from "utilities/create-shared-toolbar";
@@ -16,9 +16,9 @@ const sharedToolbarSettings: SharedToolbarSettings = {
 	buttonName: "HmsUtility",
 	buttonTooltip: "Toggles the utility widget.",
 	combinerName: "HowManyPluginsToolbar",
-	toolbarName: "HowManyPlugins",
-
 	onClicked: () => (dockWidget.Enabled = !dockWidget.Enabled),
+
+	toolbarName: "HowManyPlugins",
 };
 createSharedToolbar(plugin, sharedToolbarSettings);
 

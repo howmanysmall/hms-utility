@@ -1,7 +1,7 @@
 //!native
 //!optimize 2
 
-export default function organizeByBrickColor(model: Model | Folder) {
+export default function organizeByBrickColor(model: Folder | Model) {
 	const colorTable = new Map<BrickColorsByNumber[keyof BrickColorsByNumber], Array<BasePart>>();
 
 	for (const descendant of model.GetDescendants()) {

@@ -1,8 +1,8 @@
-import Roact from "@rbxts/roact";
+import Roact from "@rbxts/react";
 import type { ErrorBoundaryProperties } from "./types";
 
 type PropertiesWithReference<T> = T & {
-	ref?: unknown;
+	readonly ref?: unknown;
 };
 
 /**

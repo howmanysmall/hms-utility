@@ -1,23 +1,23 @@
 //!native
 //!optimize 2
 
-import Roact from "@rbxts/roact";
+import React from "@rbxts/react";
 import useTheme from "hooks/use-theme";
 
-export interface BasicShadowProperties {
+export interface BasicShadowProperties extends React.PropsWithChildren {
 	readonly position: UDim2;
 	readonly radius: number;
 	readonly size: UDim2;
 	readonly transparency: number;
 }
 
-export const BasicShadow: Roact.FunctionComponent<BasicShadowProperties> = ({
+export function BasicShadowNoMemo({
+	children,
 	position,
 	radius,
 	size,
 	transparency,
-	children,
-}) => {
+}: BasicShadowProperties): React.Element {
 	const { dropShadow } = useTheme();
 
 	return (
@@ -33,6 +33,8 @@ export const BasicShadow: Roact.FunctionComponent<BasicShadowProperties> = ({
 			{children}
 		</frame>
 	);
-};
+}
 
-export default Roact.memo(BasicShadow);
+export const BasicShadow = React.memo(BasicShadowNoMemo);
+BasicShadow.displayName = "BasicShadow";
+export default BasicShadow;

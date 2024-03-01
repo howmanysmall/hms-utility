@@ -49,6 +49,218 @@ interface Metadata {
 }
 
 export const UtilityButtonMeta: { [utilityButton in UtilityButton]: Metadata } = {
+	[UtilityButton.CreateAspectRatio]: {
+		callback: () => {
+			for (const object of Selection.Get())
+				if (object.IsA("GuiBase2d")) {
+					const uiAspectRatioConstraint = new Instance("UIAspectRatioConstraint");
+					uiAspectRatioConstraint.AspectRatio = object.AbsoluteSize.X / object.AbsoluteSize.Y;
+					uiAspectRatioConstraint.Parent = object;
+				}
+		},
+
+		name: "CreateAspectRatio",
+		shouldRecord: true,
+		text: "Create Aspect Ratio",
+		tooltip: "Creates an aspect ratio constraint for all selected GuiBase2ds.",
+	},
+
+	[UtilityButton.CreatePrimaryPart]: {
+		callback: () => {
+			const newSelection = new Array<Instance>();
+			let length = 0;
+
+			for (const object of Selection.Get()) {
+				if (object.IsA("Model")) {
+					if (object.PrimaryPart !== undefined) {
+						warn(object.GetFullName(), "already has a PrimaryPart.");
+						continue;
+					}
+
+					const primaryPart = new Instance("Part");
+					[primaryPart.CFrame, primaryPart.Size] = object.GetBoundingBox();
+					primaryPart.Anchored = true;
+					primaryPart.CanCollide = false;
+					primaryPart.Name = "Root";
+					primaryPart.Transparency = 1;
+					primaryPart.Parent = object;
+					object.PrimaryPart = primaryPart;
+
+					newSelection[length++] = primaryPart;
+				}
+			}
+
+			Selection.Set(newSelection);
+		},
+
+		name: "CreatePrimaryParts",
+		shouldRecord: true,
+		text: "Create PrimaryParts",
+		tooltip: "Creates a PrimaryPart for all selected models.",
+	},
+
+	[UtilityButton.DeleteEmptyFolders]: {
+		callback: () => {
+			const currentSelection = Selection.Get();
+			// delete under Workspace
+			if (currentSelection.isEmpty()) deleteEmptyFolders(Workspace, false);
+			else for (const object of currentSelection) deleteEmptyFolders(object, false);
+		},
+
+		name: "DeleteEmptyFolders",
+		shouldRecord: true,
+		text: "Delete Empty Folders",
+		tooltip: "Deletes all folders with no children.",
+	},
+
+	[UtilityButton.DeleteEmptyFoldersSafe]: {
+		callback: () => {
+			const currentSelection = Selection.Get();
+			// delete under Workspace
+			if (currentSelection.isEmpty()) deleteEmptyFolders(Workspace, true);
+			else for (const object of currentSelection) deleteEmptyFolders(object, true);
+		},
+
+		name: "DeleteEmptyFoldersSafe",
+		shouldRecord: true,
+		text: "Delete Empty Folders (Safe)",
+		tooltip: "Moves all folders with no children to a folder in Workspace.",
+	},
+
+	[UtilityButton.DeleteEmptyModels]: {
+		callback: () => {
+			const currentSelection = Selection.Get();
+			// delete under Workspace
+			if (currentSelection.isEmpty()) deleteEmptyModels(Workspace, false);
+			else for (const object of currentSelection) deleteEmptyModels(object, false);
+		},
+
+		name: "DeleteEmptyModels",
+		shouldRecord: true,
+		text: "Delete Empty Models",
+		tooltip: "Deletes all models with no children.",
+	},
+
+	[UtilityButton.DeleteEmptyModelsSafe]: {
+		callback: () => {
+			const currentSelection = Selection.Get();
+			// delete under Workspace
+			if (currentSelection.isEmpty()) deleteEmptyModels(Workspace, true);
+			else for (const object of currentSelection) deleteEmptyModels(object, true);
+		},
+
+		name: "DeleteEmptyModelsSafe",
+		shouldRecord: true,
+		text: "Delete Empty Models (Safe)",
+		tooltip: "Moves all models with no children to a folder in Workspace.",
+	},
+
+	[UtilityButton.EasyExport]: {
+		callback: () => {
+			for (const object of Selection.Get())
+				if (object.IsA("Folder") || object.IsA("Model")) organizeByBrickColor(object);
+		},
+
+		name: "EasyExport",
+		shouldRecord: true,
+		text: "Easy Export",
+		tooltip: "Sorts all parts in a given model by BrickColor for an easier way to export as a Mesh.",
+	},
+
+	[UtilityButton.EasyExportColor3]: {
+		callback: () => {
+			for (const object of Selection.Get())
+				if (object.IsA("Folder") || object.IsA("Model")) organizeByColor3(object);
+		},
+
+		name: "EasyExportColor3",
+		shouldRecord: true,
+		text: "Easy Export Color3",
+		tooltip: "Sorts all parts in a given model by Color3 for an easier way to export as a Mesh.",
+	},
+
+	[UtilityButton.FixTabs]: {
+		callback: () => {
+			const promises = new Array<Promise<void>>();
+			let length = 0;
+
+			for (const service of ScriptServices)
+				for (const descendant of service.GetDescendants())
+					if (isSourceContainer(descendant))
+						promises[length++] = promiseSource(descendant).then((source) => {
+							descendant.Source = source.gsub("    ", "\t")[0];
+						});
+
+			promiseAll(promises).expect();
+		},
+
+		name: "FixTabs",
+		shouldRecord: true,
+		text: "Fix Tabs",
+		tooltip: "Converts all quad spaces into tabs in all scripts.",
+	},
+
+	[UtilityButton.LockAllBaseParts]: {
+		callback: () => {
+			for (const descendant of Workspace.GetDescendants())
+				if (descendant.IsA("BasePart") && !descendant.IsA("Terrain")) descendant.Locked = true;
+		},
+
+		name: "LockAllBaseParts",
+		shouldRecord: true,
+		text: "Lock all BaseParts",
+		tooltip: "Locks all BaseParts in the place.",
+	},
+
+	[UtilityButton.RemoveDuplicates]: {
+		callback: () => {
+			const currentSelection = Selection.Get();
+			print(
+				"Deleted",
+				currentSelection.size() === 0
+					? searchForDuplicates(Workspace.GetDescendants(), 0)
+					: searchForDuplicates(currentSelection, 0),
+				"duplicate instances.",
+			);
+		},
+
+		name: "RemoveDuplicates",
+		shouldRecord: true,
+		text: "Remove Duplicates",
+		tooltip: "Removes all duplicate BaseParts from the place.",
+	},
+
+	[UtilityButton.RemoveSpec]: {
+		callback: () => {
+			let totalDeleted = 0;
+			for (const service of ScriptServices)
+				for (const descendant of service.GetDescendants())
+					if (isSourceContainer(descendant) && descendant.Name.match("%.spec$")[0] !== undefined) {
+						descendant.Parent = undefined;
+						totalDeleted += 1;
+					}
+
+			if (totalDeleted > 0) print("Deleted", totalDeleted, ".spec files.");
+		},
+
+		name: "RemoveSpec",
+		shouldRecord: true,
+		text: "Remove Spec",
+		tooltip: "Removes all .spec files from the place.",
+	},
+
+	[UtilityButton.SelectParentOfSelection]: {
+		callback: () => {
+			const selection = Selection.Get().mapFiltered((object) => object.Parent);
+			Selection.Set(selection);
+		},
+
+		name: "SelectParentOfSelection",
+		shouldRecord: false,
+		text: "Select Selection Parents",
+		tooltip: "Selects the parent of the current selection.",
+	},
+
 	[UtilityButton.SetupGame]: {
 		callback: () => {
 			clearAllEffects();
@@ -138,110 +350,12 @@ export const UtilityButtonMeta: { [utilityButton in UtilityButton]: Metadata } =
 		tooltip: "Create a Baseplate, SpawnLocation, and various Lighting effects, then select the HttpService.",
 	},
 
-	[UtilityButton.FixTabs]: {
-		callback: () => {
-			const promises = new Array<Promise<void>>();
-			let length = 0;
-
-			for (const service of ScriptServices)
-				for (const descendant of service.GetDescendants())
-					if (isSourceContainer(descendant))
-						promises[length++] = promiseSource(descendant).then((source) => {
-							descendant.Source = source.gsub("    ", "\t")[0];
-						});
-
-			promiseAll(promises).expect();
-		},
-
-		name: "FixTabs",
-		shouldRecord: true,
-		text: "Fix Tabs",
-		tooltip: "Converts all quad spaces into tabs in all scripts.",
-	},
-
-	[UtilityButton.RemoveSpec]: {
-		callback: () => {
-			let totalDeleted = 0;
-			for (const service of ScriptServices)
-				for (const descendant of service.GetDescendants())
-					if (isSourceContainer(descendant) && descendant.Name.match("%.spec$")[0] !== undefined) {
-						descendant.Parent = undefined;
-						totalDeleted += 1;
-					}
-
-			if (totalDeleted > 0) print("Deleted", totalDeleted, ".spec files.");
-		},
-
-		name: "RemoveSpec",
-		shouldRecord: true,
-		text: "Remove Spec",
-		tooltip: "Removes all .spec files from the place.",
-	},
-
-	[UtilityButton.RemoveDuplicates]: {
-		callback: () => {
-			const currentSelection = Selection.Get();
-			print(
-				"Deleted",
-				currentSelection.size() === 0
-					? searchForDuplicates(Workspace.GetDescendants(), 0)
-					: searchForDuplicates(currentSelection, 0),
-				"duplicate instances.",
-			);
-		},
-
-		name: "RemoveDuplicates",
-		shouldRecord: true,
-		text: "Remove Duplicates",
-		tooltip: "Removes all duplicate BaseParts from the place.",
-	},
-
 	[UtilityButton.ShowDecompositionGeometry]: {
 		callback: () => (PhysicsSettings.ShowDecompositionGeometry = !PhysicsSettings.ShowDecompositionGeometry),
 		name: "ShowDecompositionGeometry",
 		shouldRecord: false,
 		text: "Show Decomposition Geometry",
 		tooltip: "Toggles the visibility of the decomposition geometry.",
-	},
-
-	[UtilityButton.SelectParentOfSelection]: {
-		callback: () => {
-			const selection = Selection.Get().mapFiltered((object) => object.Parent);
-			Selection.Set(selection);
-		},
-
-		name: "SelectParentOfSelection",
-		shouldRecord: false,
-		text: "Select Selection Parents",
-		tooltip: "Selects the parent of the current selection.",
-	},
-
-	[UtilityButton.CreateAspectRatio]: {
-		callback: () => {
-			for (const object of Selection.Get())
-				if (object.IsA("GuiBase2d")) {
-					const uiAspectRatioConstraint = new Instance("UIAspectRatioConstraint");
-					uiAspectRatioConstraint.AspectRatio = object.AbsoluteSize.X / object.AbsoluteSize.Y;
-					uiAspectRatioConstraint.Parent = object;
-				}
-		},
-
-		name: "CreateAspectRatio",
-		shouldRecord: true,
-		text: "Create Aspect Ratio",
-		tooltip: "Creates an aspect ratio constraint for all selected GuiBase2ds.",
-	},
-
-	[UtilityButton.LockAllBaseParts]: {
-		callback: () => {
-			for (const descendant of Workspace.GetDescendants())
-				if (descendant.IsA("BasePart") && !descendant.IsA("Terrain")) descendant.Locked = true;
-		},
-
-		name: "LockAllBaseParts",
-		shouldRecord: true,
-		text: "Lock all BaseParts",
-		tooltip: "Locks all BaseParts in the place.",
 	},
 
 	[UtilityButton.ValleyLighting]: {
@@ -312,40 +426,6 @@ export const UtilityButtonMeta: { [utilityButton in UtilityButton]: Metadata } =
 		tooltip: "Sets the lighting to the valley theme.",
 	},
 
-	[UtilityButton.CreatePrimaryPart]: {
-		callback: () => {
-			const newSelection = new Array<Instance>();
-			let length = 0;
-
-			for (const object of Selection.Get()) {
-				if (object.IsA("Model")) {
-					if (object.PrimaryPart !== undefined) {
-						warn(object.GetFullName(), "already has a PrimaryPart.");
-						continue;
-					}
-
-					const primaryPart = new Instance("Part");
-					[primaryPart.CFrame, primaryPart.Size] = object.GetBoundingBox();
-					primaryPart.Anchored = true;
-					primaryPart.CanCollide = false;
-					primaryPart.Name = "Root";
-					primaryPart.Transparency = 1;
-					primaryPart.Parent = object;
-					object.PrimaryPart = primaryPart;
-
-					newSelection[length++] = primaryPart;
-				}
-			}
-
-			Selection.Set(newSelection);
-		},
-
-		name: "CreatePrimaryParts",
-		shouldRecord: true,
-		text: "Create PrimaryParts",
-		tooltip: "Creates a PrimaryPart for all selected models.",
-	},
-
 	[UtilityButton.WeldConstraintTools]: {
 		callback: () => {
 			for (const object of Selection.Get()) if (object.IsA("Tool")) weldTool(object);
@@ -355,86 +435,6 @@ export const UtilityButtonMeta: { [utilityButton in UtilityButton]: Metadata } =
 		shouldRecord: true,
 		text: "WeldConstraint Tools",
 		tooltip: "Welds all the BaseParts in the selected Tools using a WeldConstraint.",
-	},
-
-	[UtilityButton.EasyExport]: {
-		callback: () => {
-			for (const object of Selection.Get())
-				if (object.IsA("Folder") || object.IsA("Model")) organizeByBrickColor(object);
-		},
-
-		name: "EasyExport",
-		shouldRecord: true,
-		text: "Easy Export",
-		tooltip: "Sorts all parts in a given model by BrickColor for an easier way to export as a Mesh.",
-	},
-
-	[UtilityButton.EasyExportColor3]: {
-		callback: () => {
-			for (const object of Selection.Get())
-				if (object.IsA("Folder") || object.IsA("Model")) organizeByColor3(object);
-		},
-
-		name: "EasyExportColor3",
-		shouldRecord: true,
-		text: "Easy Export Color3",
-		tooltip: "Sorts all parts in a given model by Color3 for an easier way to export as a Mesh.",
-	},
-
-	[UtilityButton.DeleteEmptyModels]: {
-		callback: () => {
-			const currentSelection = Selection.Get();
-			// delete under Workspace
-			if (currentSelection.isEmpty()) deleteEmptyModels(Workspace, false);
-			else for (const object of currentSelection) deleteEmptyModels(object, false);
-		},
-
-		name: "DeleteEmptyModels",
-		shouldRecord: true,
-		text: "Delete Empty Models",
-		tooltip: "Deletes all models with no children.",
-	},
-
-	[UtilityButton.DeleteEmptyModelsSafe]: {
-		callback: () => {
-			const currentSelection = Selection.Get();
-			// delete under Workspace
-			if (currentSelection.isEmpty()) deleteEmptyModels(Workspace, true);
-			else for (const object of currentSelection) deleteEmptyModels(object, true);
-		},
-
-		name: "DeleteEmptyModelsSafe",
-		shouldRecord: true,
-		text: "Delete Empty Models (Safe)",
-		tooltip: "Moves all models with no children to a folder in Workspace.",
-	},
-
-	[UtilityButton.DeleteEmptyFolders]: {
-		callback: () => {
-			const currentSelection = Selection.Get();
-			// delete under Workspace
-			if (currentSelection.isEmpty()) deleteEmptyFolders(Workspace, false);
-			else for (const object of currentSelection) deleteEmptyFolders(object, false);
-		},
-
-		name: "DeleteEmptyFolders",
-		shouldRecord: true,
-		text: "Delete Empty Folders",
-		tooltip: "Deletes all folders with no children.",
-	},
-
-	[UtilityButton.DeleteEmptyFoldersSafe]: {
-		callback: () => {
-			const currentSelection = Selection.Get();
-			// delete under Workspace
-			if (currentSelection.isEmpty()) deleteEmptyFolders(Workspace, true);
-			else for (const object of currentSelection) deleteEmptyFolders(object, true);
-		},
-
-		name: "DeleteEmptyFoldersSafe",
-		shouldRecord: true,
-		text: "Delete Empty Folders (Safe)",
-		tooltip: "Moves all folders with no children to a folder in Workspace.",
 	},
 };
 

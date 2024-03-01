@@ -1,11 +1,11 @@
 //!native
 //!optimize 2
 
-import Roact from "@rbxts/roact";
-import ErrorBoundary from "packages/react-error-boundary/error-boundary";
+import React, { StrictMode } from "@rbxts/react";
+import { ErrorBoundary } from "packages/react-error-boundary";
 import FallbackResetBoundary from "./fallback-reset-boundary";
 
-export interface AppProperties {
+export interface AppProperties extends React.PropsWithChildren {
 	/**
 	 * Whether or not to use strict mode.
 	 *
@@ -15,10 +15,21 @@ export interface AppProperties {
 	readonly useStrictMode?: boolean;
 }
 
-export const App: Roact.FunctionComponent<AppProperties> = ({ children, useStrictMode }) => (
-	<ErrorBoundary FallbackComponent={FallbackResetBoundary} onError={warn} onReset={() => print("Called reset.")}>
-		{useStrictMode ? <Roact.StrictMode key="StrictMode">{children}</Roact.StrictMode> : <>{children}</>}
-	</ErrorBoundary>
-);
+export function AppNoMemo({ children, useStrictMode }: AppProperties): React.Element {
+	const child = (
+		<ErrorBoundary
+			FallbackComponent={FallbackResetBoundary}
+			key="ErrorBoundary"
+			onError={warn}
+			onReset={() => print("Called reset.")}
+		>
+			{children}
+		</ErrorBoundary>
+	);
 
-export default Roact.memo(App);
+	return useStrictMode ? <StrictMode>{child}</StrictMode> : child;
+}
+
+export const App = React.memo(AppNoMemo);
+App.displayName = "App";
+export default App;

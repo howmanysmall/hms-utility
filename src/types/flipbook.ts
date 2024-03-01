@@ -1,10 +1,10 @@
 //!native
 //!optimize 2
 
+import React from "@rbxts/react";
 import * as ReactRoblox from "@rbxts/react-roblox";
-import Roact from "@rbxts/roact";
 
-type React = typeof Roact;
+type React = typeof React;
 type ReactRoblox = typeof ReactRoblox;
 
 interface StoryProperties<T extends object> {
@@ -29,12 +29,12 @@ interface BaseStory extends BaseFunctionStory {
 }
 
 export interface ReactStory extends BaseStory {
-	story: Roact.Element;
+	story: React.Element;
 }
 
 export interface ReactStoryWith<T extends object> extends BaseStory {
 	controls: T;
-	story: Roact.Element | Roact.FunctionComponent<StoryProperties<T>>;
+	story: React.Element | React.FunctionComponent<StoryProperties<T>>;
 }
 
 export interface FunctionStory extends BaseFunctionStory {

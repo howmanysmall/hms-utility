@@ -1,28 +1,28 @@
 //!native
 //!optimize 2
 
-import { useSpring } from "@rbxts/rbx-react-spring";
-import Roact, { useCallback } from "@rbxts/roact";
+import React, { useCallback, type InstanceProps } from "@rbxts/react";
+import { useSpring } from "@rbxts/react-spring";
 import useBasicInputEvents from "hooks/use-basic-input-events";
 import useTheme from "hooks/use-theme";
 import { oneScale } from "utilities/udim2";
 
-export interface ButtonProperties {
+export interface ButtonProperties extends React.PropsWithChildren {
 	readonly disabled?: boolean;
-	readonly nativeProperties: Roact.JsxInstance<TextButton>;
-	readonly selected?: boolean;
+	readonly nativeProperties: InstanceProps<TextButton>;
 	readonly onActivated?: () => void;
+	readonly selected?: boolean;
 }
 
-export const Button: Roact.FunctionComponent<ButtonProperties> = ({
+export function ButtonNoMemo({
 	children,
 	disabled = false,
 	nativeProperties,
-	selected = false,
 	onActivated = () => {},
-}) => {
+	selected = false,
+}: ButtonProperties): React.Element {
 	const { button, buttonBorder, buttonText, fontFaces, springConfigs, textSize } = useTheme();
-	const { hovered, pressed, onInputBegan, onInputEnded, setHovered, setPressed } =
+	const { hovered, onInputBegan, onInputEnded, pressed, setHovered, setPressed } =
 		useBasicInputEvents<TextButton>(!disabled);
 
 	const buttonOnActivated = useCallback(() => {
@@ -45,9 +45,9 @@ export const Button: Roact.FunctionComponent<ButtonProperties> = ({
 
 	const { backgroundColor3, borderColor3, textColor3 } = useSpring(
 		{
-			config: springConfigs.noOvershoot117ms,
 			backgroundColor3: button[modifier],
 			borderColor3: buttonBorder[modifier],
+			config: springConfigs.noOvershoot117ms,
 			textColor3: buttonText[modifier],
 		},
 		[button, buttonBorder, buttonText, modifier],
@@ -63,17 +63,19 @@ export const Button: Roact.FunctionComponent<ButtonProperties> = ({
 			BackgroundColor3={backgroundColor3}
 			BorderColor3={borderColor3}
 			BorderMode={Enum.BorderMode.Inset}
-			FontFace={fontFaces.default}
-			TextColor3={textColor3}
 			Event={{
 				Activated: buttonOnActivated,
 				InputBegan: onInputBegan,
 				InputEnded: onInputEnded,
 			}}
+			FontFace={fontFaces.default}
+			TextColor3={textColor3}
 		>
 			{children}
 		</textbutton>
 	);
-};
+}
 
-export default Roact.memo(Button);
+export const Button = React.memo(ButtonNoMemo);
+Button.displayName = "Button";
+export default Button;

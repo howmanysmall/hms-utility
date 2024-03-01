@@ -1,24 +1,25 @@
 //!native
+//!nonstrict
 //!optimize 2
 
-import { useContext, useMemo, useState } from "@rbxts/roact";
-import type { Error } from "packages/luau-polyfill";
+import { useContext, useMemo, useState } from "@rbxts/react";
+import type { Error } from "../luau-polyfill";
 import assertErrorBoundaryContext from "./assert-error-boundary-context";
 import ErrorBoundaryContext from "./error-boundary-context";
 
 export interface UseErrorBoundaryApi<TError extends Error> {
-	resetBoundary: () => void;
-	showBoundary: (exception: TError) => void;
+	readonly resetBoundary: () => void;
+	readonly showBoundary: (exception: TError) => void;
 }
 
 type HookState<TError extends Error> =
 	| {
-			error: TError;
-			hasError: true;
+			readonly error: TError;
+			readonly hasError: true;
 	  }
 	| {
-			error: undefined;
-			hasError: false;
+			readonly error: undefined;
+			readonly hasError: false;
 	  };
 
 /**
@@ -44,7 +45,7 @@ type HookState<TError extends Error> =
  *
  * @returns
  */
-export const useErrorBoundary = <TError extends Error>(): Readonly<UseErrorBoundaryApi<TError>> => {
+export function useErrorBoundary<TError extends Error>(): Readonly<UseErrorBoundaryApi<TError>> {
 	const context = assertErrorBoundaryContext(useContext(ErrorBoundaryContext));
 	const [state, setState] = useState<HookState<TError>>({
 		error: undefined,
@@ -73,6 +74,6 @@ export const useErrorBoundary = <TError extends Error>(): Readonly<UseErrorBound
 
 	if (state.hasError) throw state.error;
 	return memoized;
-};
+}
 
 export default useErrorBoundary;

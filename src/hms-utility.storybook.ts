@@ -1,13 +1,13 @@
 //!native
 //!optimize 2
 
+import React from "@rbxts/react";
 import * as ReactRoblox from "@rbxts/react-roblox";
-import Roact from "@rbxts/roact";
 import type { Storybook } from "types/flipbook";
 
 const HmsUtilityStorybook: Storybook = {
 	name: "HmsUtility",
-	react: Roact,
+	react: React,
 	reactRoblox: ReactRoblox,
 	storyRoots: [script.Parent!.FindFirstChild("stories")!],
 };

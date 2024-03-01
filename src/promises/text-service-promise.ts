@@ -6,7 +6,7 @@ const getTextBoundsAsync = (getTextBoundsParameters: GetTextBoundsParams) =>
 	TextService.GetTextBoundsAsync(getTextBoundsParameters);
 
 export function promiseTextBounds(getTextBoundsParameters: GetTextBoundsParams) {
-	return Promise.defer<Vector2>((resolve, reject) => {
+	return new Promise<Vector2>((resolve, reject) => {
 		const [success, value] = pcall(getTextBoundsAsync, getTextBoundsParameters);
 		if (success) resolve(value);
 		else reject(value);
@@ -20,7 +20,7 @@ export function promiseTextSize(text: string, textSize: number, font: Font, fram
 	getTextBoundsParameters.Text = text;
 	getTextBoundsParameters.Width = frameSize.X;
 
-	return Promise.defer<Vector2>((resolve, reject) => {
+	return new Promise<Vector2>((resolve, reject) => {
 		const [success, value] = pcall(getTextBoundsAsync, getTextBoundsParameters);
 		if (success) resolve(value);
 		else reject(value);

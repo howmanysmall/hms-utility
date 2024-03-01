@@ -1,16 +1,14 @@
 //!native
 //!optimize 2
-/* eslint-disable unicorn/no-array-callback-reference */
 
-import Roact, { useBinding, useCallback, useEffect, useRef, useState } from "@rbxts/roact";
-
+import React, { useBinding, useCallback, useEffect, useRef, useState } from "@rbxts/react";
 import useTheme from "hooks/use-theme";
-import BasicShadow from "./basic-shadow";
-
 import { console } from "packages/luau-polyfill";
 import { promiseTextSize } from "promises/text-service-promise";
 import { offset, offsetFromVector2, oneOffset, oneScale } from "utilities/udim2";
 import { fromVector3XYNoCache } from "utilities/vector2";
+import BasicShadow from "./basic-shadow";
+import Portal from "./portal";
 
 const BUFFER = 3;
 
@@ -33,12 +31,12 @@ export interface TooltipProperties {
 	readonly text: string;
 }
 
-export const Tooltip: Roact.FunctionComponent<Partial<TooltipProperties>> = ({
+export function TooltipNoMemo({
 	disabled,
 	hoverDelay = 0.4,
 	maxWidth = 200,
 	text = "Tooltip.defaultProps.Text",
-}) => {
+}: Partial<TooltipProperties>): React.Element {
 	const [display, setDisplay] = useState(false);
 	const [textSize, setTextSize] = useBinding(Vector2.zero);
 
@@ -142,7 +140,7 @@ export const Tooltip: Roact.FunctionComponent<Partial<TooltipProperties>> = ({
 		})
 		.map((value) => offsetFromVector2(displayPosition.current!.add(value)));
 
-	let dropShadow: Roact.Element | undefined;
+	let dropShadow: React.Element | undefined;
 	let target: LayerCollector | undefined;
 	if (display) {
 		target = reference.current?.FindFirstAncestorWhichIsA("LayerCollector");
@@ -185,17 +183,17 @@ export const Tooltip: Roact.FunctionComponent<Partial<TooltipProperties>> = ({
 	return (
 		<frame
 			BackgroundTransparency={1}
-			Size={oneScale}
-			ref={reference}
 			Change={{ AbsolutePosition: cancel }}
 			Event={{
 				InputBegan: onInputBeganChanged,
 				InputChanged: onInputBeganChanged,
 				InputEnded: onInputEnded,
 			}}
+			Size={oneScale}
+			ref={reference}
 		>
 			{target ? (
-				<Roact.Portal key="Portal" target={target}>
+				<Portal key="Portal" target={target}>
 					<frame
 						AnchorPoint={anchorPoint}
 						BackgroundTransparency={1}
@@ -228,10 +226,12 @@ export const Tooltip: Roact.FunctionComponent<Partial<TooltipProperties>> = ({
 
 						{dropShadow}
 					</frame>
-				</Roact.Portal>
+				</Portal>
 			) : undefined}
 		</frame>
 	);
-};
+}
 
-export default Roact.memo(Tooltip);
+export const Tooltip = React.memo(TooltipNoMemo);
+Tooltip.displayName = "Tooltip";
+export default Tooltip;

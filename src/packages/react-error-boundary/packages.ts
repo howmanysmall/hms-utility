@@ -1,9 +1,9 @@
 //!native
+//!nonstrict
 //!optimize 2
 /* eslint-disable unicorn/prefer-export-from */
+import ReactPackage from "@rbxts/react";
+import LuauPolyfill from "../luau-polyfill";
 
-import Roact from "@rbxts/roact";
-import LuauPolyfill from "packages/luau-polyfill";
-
-export const React = Roact;
+export const React = ReactPackage;
 export { LuauPolyfill };

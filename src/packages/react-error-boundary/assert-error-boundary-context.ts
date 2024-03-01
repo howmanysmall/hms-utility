@@ -1,4 +1,5 @@
 //!native
+//!nonstrict
 //!optimize 2
 
 import { t } from "@rbxts/t";

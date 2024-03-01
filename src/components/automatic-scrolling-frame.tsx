@@ -1,7 +1,7 @@
 //!native
 //!optimize 2
 
-import Roact, { useMemo } from "@rbxts/roact";
+import React, { useMemo } from "@rbxts/react";
 import useTheme from "hooks/use-theme";
 import { oneScale } from "utilities/udim2";
 
@@ -9,18 +9,18 @@ export interface AutomaticScrollingFrameProperties {
 	readonly includePadding?: boolean;
 	readonly itemCount: number;
 	readonly itemHeight: number;
-	readonly renderItem: (index: number) => Roact.Element;
+	readonly renderItem: (index: number) => React.Element;
 }
 
-export const AutomaticScrollingFrame: Roact.FunctionComponent<AutomaticScrollingFrameProperties> = ({
+export function AutomaticScrollingFrameNoMemo({
 	itemCount,
 	itemHeight,
 	renderItem,
-}) => {
+}: AutomaticScrollingFrameProperties): React.Element {
 	const { themeName } = useTheme();
 
 	const children = useMemo(() => {
-		const children = new Array<Roact.Element>(itemCount);
+		const children = new Array<React.Element>(itemCount);
 
 		for (const index of $range(1, itemCount))
 			children[index - 1] = (
@@ -60,6 +60,8 @@ export const AutomaticScrollingFrame: Roact.FunctionComponent<AutomaticScrolling
 			{children}
 		</scrollingframe>
 	);
-};
+}
 
-export default Roact.memo(AutomaticScrollingFrame);
+export const AutomaticScrollingFrame = React.memo(AutomaticScrollingFrameNoMemo);
+AutomaticScrollingFrame.displayName = "AutomaticScrollingFrame";
+export default AutomaticScrollingFrame;

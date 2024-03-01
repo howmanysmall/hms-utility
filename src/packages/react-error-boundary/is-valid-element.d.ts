@@ -1,4 +1,4 @@
-import Roact from "@rbxts/roact";
+import React from "@rbxts/react";
 
-declare function isValidElement(object: unknown): object is Roact.Element;
+declare function isValidElement(object: unknown): object is React.Element;
 export = isValidElement;
