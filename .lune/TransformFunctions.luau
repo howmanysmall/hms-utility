@@ -1,6 +1,7 @@
 --!native
 --!optimize 2
 --!strict
+
 local FileInstance = require("./FileInstance")
 local process = require("@lune/process")
 local task = require("@lune/task")
@@ -43,8 +44,7 @@ function TransformFunctions.TransformDirectory(Directory: FileInstance)
 				local TableDefinition, FunctionName = string.match(Line, "([%w_]+)%.([%w_]+)%s*=%s*function%(")
 				if TableDefinition and FunctionName then
 					if not WasChanged then
-						local New, Replacements =
-							string.gsub(Line, "([%w_]+)%.([%w_]+)%s*=%s*function%(", "function %1.%2(")
+						local New, Replacements = string.gsub(Line, "([%w_]+)%.([%w_]+)%s*=%s*function%(", "function %1.%2(")
 						Lines[Index] = New
 						WasChanged = Replacements > 0
 					else
