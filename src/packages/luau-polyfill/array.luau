@@ -9,12 +9,14 @@ type callbackFnWithThisArg<T, U> = (self: U, element: T, index: number, array: A
 type Object = {[string]: any}
 
 local function every<T, U>(t: Array<T>, callback: callbackFn<T> | callbackFnWithThisArg<T, U>, thisArg: U?): boolean
-	if type(t) ~= "table" then
-		error(string.format("Array.every called on %s", typeof(t)))
-	end
+	if _G.__DEV__ then
+		if type(t) ~= "table" then
+			error(string.format("Array.every called on %*", typeof(t)))
+		end
 
-	if type(callback) ~= "function" then
-		error("callback is not a function")
+		if type(callback) ~= "function" then
+			error("callback is not a function")
+		end
 	end
 
 	local len = #t
@@ -43,12 +45,14 @@ local function every<T, U>(t: Array<T>, callback: callbackFn<T> | callbackFnWith
 end
 
 local function filter<T, U>(t: Array<T>, callback: callbackFn<T> | callbackFnWithThisArg<T, U>, thisArg: U?): Array<T>
-	if type(t) ~= "table" then
-		error(string.format("Array.filter called on %s", typeof(t)))
-	end
+	if _G.__DEV__ then
+		if type(t) ~= "table" then
+			error(string.format("Array.filter called on %*", typeof(t)))
+		end
 
-	if type(callback) ~= "function" then
-		error("callback is not a function")
+		if type(callback) ~= "function" then
+			error("callback is not a function")
+		end
 	end
 
 	local len = #t
@@ -165,10 +169,7 @@ local function isArrayValidator(array: any, validate: (value: unknown) -> boolea
 	return sum == count * (count + 1) / 2
 end
 
-local CONCAT_BAD_OBJECT = "Array.concat(...) only works with array-like tables but "
-	.. "it received an object-like table.\nYou can avoid this error by wrapping the "
-	.. "object-like table into an array. Example: `concat({1, 2}, {a = true})` should "
-	.. "be `concat({1, 2}, { {a = true} }`"
+local CONCAT_BAD_OBJECT = "Array.concat(...) only works with array-like tables but " .. "it received an object-like table.\nYou can avoid this error by wrapping the " .. "object-like table into an array. Example: `concat({1, 2}, {a = true})` should " .. "be `concat({1, 2}, { {a = true} }`"
 
 local function concat<T, S>(source: {T} | T, ...: {S} | S): {T} & {S}
 	local array
@@ -220,8 +221,8 @@ local function reverse<T>(array: {T}): {T}
 end
 
 local function slice<T>(array: {T}, startIndex: number?, finishIndex: number?): {T}
-	if type(array) ~= "table" then
-		error(string.format("Array.slice called on %s", typeof(array)))
+	if _G.__DEV__ and type(array) ~= "table" then
+		error(string.format("Array.slice called on %*", typeof(array)))
 	end
 
 	local length = #array
@@ -267,30 +268,30 @@ local function splice<T>(array: {T}, start: number, deleteCount: number?, ...: T
 		end
 
 		return {}
-	else
-		if start < 1 then
-			start = math.max(length - math.abs(start), 1)
-		end
-
-		local deletedItems: {T} = {}
-		local trueDeleteCount = if deleteCount then deleteCount else length
-
-		if trueDeleteCount > 0 then
-			local lastIndex = math.min(length, start + math.max(0, trueDeleteCount - 1))
-
-			for _ = start, lastIndex do
-				local deleted = table.remove(array, start) :: T
-				table.insert(deletedItems, deleted)
-			end
-		end
-
-		for index = select("#", ...), 1, -1 do
-			local value = select(index, ...)
-			table.insert(array, start, value)
-		end
-
-		return deletedItems
 	end
+
+	if start < 1 then
+		start = math.max(length - math.abs(start), 1)
+	end
+
+	local deletedItems: {T} = {}
+	local trueDeleteCount = if deleteCount then deleteCount else length
+
+	if trueDeleteCount > 0 then
+		local lastIndex = math.min(length, start + math.max(0, trueDeleteCount - 1))
+
+		for _ = start, lastIndex do
+			local deleted = table.remove(array, start) :: T
+			table.insert(deletedItems, deleted)
+		end
+	end
+
+	for index = select("#", ...), 1, -1 do
+		local value = select(index, ...)
+		table.insert(array, start, value)
+	end
+
+	return deletedItems
 end
 
 local function DEFAULT_SORT(a, b)
@@ -319,12 +320,14 @@ local function sort<T>(array: {T}, compare: nil | (a: any, b: any) -> number)
 end
 
 local function some<T, U>(t: Array<T>, callback: callbackFn<T> | callbackFnWithThisArg<T, U>, thisArg: U?)
-	if type(t) ~= "table" then
-		error(string.format("Array.some called on %*", typeof(t)))
-	end
+	if _G.__DEV__ then
+		if type(t) ~= "table" then
+			error(string.format("Array.some called on %*", typeof(t)))
+		end
 
-	if type(callback) ~= "function" then
-		error("callback is not a function")
+		if type(callback) ~= "function" then
+			error("callback is not a function")
+		end
 	end
 
 	for index, value in t do
@@ -356,10 +359,11 @@ type callbackFnMap<T, U> = (element: T, index: number, array: Array<T>) -> U
 type callbackFnWithThisArgMap<T, U, V> = (thisArg: V, element: T, index: number, array: Array<T>) -> U
 local function map<T, U, V>(t: Array<T>, callback, thisArg: V?): Array<U>
 	if _G.__DEV__ then
-		if typeof(t) ~= "table" then
-			error(string.format("Array.map called on %s", typeof(t)))
+		if type(t) ~= "table" then
+			error(string.format("Array.map called on %*", typeof(t)))
 		end
-		if typeof(callback) ~= "function" then
+
+		if type(callback) ~= "function" then
 			error("callback is not a function")
 		end
 	end
@@ -391,7 +395,7 @@ end
 local function reduce<T, U>(array: Array<T>, callback, initialValue: U?): U
 	if _G.__DEV__ then
 		if type(array) ~= "table" then
-			error(string.format("Array.reduce called on %s", typeof(array)))
+			error(string.format("Array.reduce called on %*", typeof(array)))
 		end
 
 		if type(callback) ~= "function" then

@@ -1,4 +1,5 @@
 --!native
+--!nonstrict
 --!optimize 2
 
 type Function = (...any) -> any
@@ -20,18 +21,25 @@ function Error.instanceof(value)
 end
 
 -- ROBLOX NOTE: extracted __createError function so that both Error.new() and Error() can capture the stack trace at the same depth
-local function __createError(message: string?): Error
-	local self: Error = setmetatable({
-		name = DEFAULT_NAME;
-		message = message or "";
-	}, Error) :: any
+-- local function __createError(message: string?): Error
+-- 	local self: Error = setmetatable({
+-- 		name = DEFAULT_NAME;
+-- 		message = message or "";
+-- 	}, Error) :: any
 
-	Error.__captureStackTrace(self :: Error_private, 4)
-	return self
-end
+-- 	Error.__captureStackTrace(self :: Error_private, 4)
+-- 	return self
+-- end
 
 function Error.new(message: string?): Error
-	return __createError(message)
+	local self = setmetatable({}, Error)
+	return self:constructor(message) or self
+end
+
+function Error:constructor(message: string?)
+	self.name = DEFAULT_NAME
+	self.message = message or ""
+	Error.__captureStackTrace(self :: Error_private, 4)
 end
 
 function Error.captureStackTrace(err: Error, options: Function?)
@@ -78,7 +86,7 @@ end
 return table.freeze({
 	default = setmetatable(Error, {
 		__call = function(_, ...)
-			return __createError(...)
+			return Error.new(...)
 		end;
 
 		__tostring = function(self)
