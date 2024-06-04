@@ -89,33 +89,43 @@ function formatValue(value, seenValues, options: FormatOptions)
 	local valueType = typeof(value)
 	if valueType == "string" then
 		return HttpService:JSONEncode(value)
-	elseif valueType == "number" then
+	end
+
+	if valueType == "number" then
 		if value ~= value then
 			return "NaN"
-		elseif value == math.huge then
-			return "Infinity"
-		elseif value == -math.huge then
-			return "-Infinity"
-		else
-			return tostring(value)
 		end
-	elseif valueType == "function" then
+
+		if value == math.huge then
+			return "Infinity"
+		end
+
+		if value == -math.huge then
+			return "-Infinity"
+		end
+
+		return `{value}`
+	end
+
+	if valueType == "function" then
 		local result = "[function"
 		local functionName = debug.info(value :: (any) -> any, "n")
 		if functionName ~= nil and functionName ~= "" then
-			result ..= " " .. functionName
+			result ..= ` {functionName}`
 		end
 
-		return result .. "]"
-	elseif valueType == "table" then
+		return `{result}]`
+	end
+
+	if valueType == "table" then
 		-- ROBLOX TODO: parameterize inspect with the library-specific NULL sentinel. maybe function generics?
 		-- if value == NULL then
 		-- 	return 'null'
 		-- end
 		return formatObjectValue(value, seenValues, options)
-	else
-		return tostring(value)
 	end
+
+	return `{value}`
 end
 
 function formatObjectValue(value, previouslySeenValues, options: FormatOptions)
@@ -123,20 +133,18 @@ function formatObjectValue(value, previouslySeenValues, options: FormatOptions)
 		return "[Circular]"
 	end
 
-	local seenValues = {table.unpack(previouslySeenValues)}
-	table.insert(seenValues, value)
+	local length = #previouslySeenValues
+	local seenValues = table.move(previouslySeenValues, 1, length, 1, table.create(length + 1))
+	seenValues[length + 1] = value
 
 	if type(value.toJSON) == "function" then
 		local jsonValue = value:toJSON(value)
-
 		if jsonValue ~= value then
-			if type(jsonValue) == "string" then
-				return jsonValue
-			else
-				return formatValue(jsonValue, seenValues, options)
-			end
+			return if type(jsonValue) == "string" then jsonValue else formatValue(jsonValue, seenValues, options)
 		end
-	elseif isArray(value) then
+	end
+
+	if isArray(value) then
 		return formatArray(value, seenValues, options)
 	end
 
@@ -147,7 +155,7 @@ function formatObject(object, seenValues, options: FormatOptions)
 	local result = ""
 	local metatable = getmetatable(object)
 	if metatable and rawget(metatable, "__tostring") then
-		return tostring(object)
+		return `{object}`
 	end
 
 	local fragmentedKeys, fragmentedKeysLength, keysLength = getFragmentedKeys(object)
@@ -158,22 +166,20 @@ function formatObject(object, seenValues, options: FormatOptions)
 	end
 
 	if #seenValues > options.depth then
-		result ..= "[" .. getObjectTag(object) .. "]"
+		result ..= `[{getObjectTag(object)}]`
 		return result
 	end
 
-	local properties = {}
+	local properties = table.create(keysLength + fragmentedKeysLength)
 	for index = 1, keysLength do
 		local value = formatValue(object[index], seenValues, options)
-
-		table.insert(properties, value)
+		properties[index] = value
 	end
 
 	for index = 1, fragmentedKeysLength do
 		local key = fragmentedKeys[index]
 		local value = formatValue(object[key], seenValues, options)
-
-		table.insert(properties, key .. ": " .. value)
+		properties[keysLength + index] = `{key}: {value}`
 	end
 
 	result ..= "{ " .. table.concat(properties, ", ") .. " }"
@@ -192,19 +198,19 @@ function formatArray(array: Array<any>, seenValues: Array<any>, options: FormatO
 
 	local len = math.min(MAX_ARRAY_LENGTH, length)
 	local remaining = length - len
-	local items = {}
+	local items = table.create(len + 1)
 
 	for index = 1, len do
 		items[index] = formatValue(array[index], seenValues, options)
 	end
 
 	if remaining == 1 then
-		table.insert(items, "... 1 more item")
+		items[len + 1] = "... 1 more item"
 	elseif remaining > 1 then
-		table.insert(items, string.format("... %* more items", tostring(remaining)))
+		items[len + 1] = `... {remaining} more items`
 	end
 
-	return "[" .. table.concat(items, ", ") .. "]"
+	return `[{table.concat(items, ", ")}]`
 end
 
 function getObjectTag(_object): string
