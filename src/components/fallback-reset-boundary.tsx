@@ -13,6 +13,6 @@ export function FallbackResetBoundaryNoMemo(): React.Element {
 	return <></>;
 }
 
-export const FallbackResetBoundary = React.memo(FallbackResetBoundaryNoMemo);
+export const FallbackResetBoundary = React.memo(FallbackResetBoundaryNoMemo, () => false);
 FallbackResetBoundary.displayName = "FallbackResetBoundary";
 export default FallbackResetBoundary;

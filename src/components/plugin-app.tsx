@@ -101,6 +101,6 @@ export function PluginAppNoMemo(): React.Element {
 	);
 }
 
-export const PluginApp = React.memo(PluginAppNoMemo);
+export const PluginApp = React.memo(PluginAppNoMemo, () => false);
 PluginApp.displayName = "PluginApp";
 export default PluginApp;
