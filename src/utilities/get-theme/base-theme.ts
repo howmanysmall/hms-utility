@@ -5,10 +5,10 @@ import type { AnimationConfigs } from "@rbxts/react-spring";
 
 export const BaseTheme = {
 	fontFaces: {
-		bold: new Font("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold),
-		default: new Font("rbxasset://fonts/families/GothamSSm.json"),
-		heavy: new Font("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Heavy),
-		medium: new Font("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium),
+		bold: new Font("rbxasset://fonts/families/BuilderSans.json", Enum.FontWeight.Bold),
+		default: new Font("rbxasset://fonts/families/BuilderSans.json"),
+		heavy: new Font("rbxasset://fonts/families/BuilderSans.json", Enum.FontWeight.ExtraBold),
+		medium: new Font("rbxasset://fonts/families/BuilderSans.json", Enum.FontWeight.Medium),
 	},
 
 	springConfigs: {
